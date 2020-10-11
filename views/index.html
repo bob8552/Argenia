@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp">
+
+<head>
+	<!--Main HTML Page-->
+
+	<!--Title-->
+	<title>Argenia</title>
+
+	<!--Meta-->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+	<!--Embed META-->
+	<meta property="og:site_name" content="Argenia">
+	<meta property="og:url" content="https://argenia.bob8552.repl.co/">
+	<meta property="og:title" content="Argenia | A fun web game">
+	<meta property="og:description" content="Argenia is a game about earning money and buying virtual items.">
+	<meta property="og:type" content="website">
+	<meta name="og:image" itemprop="image" content="/images/MMG.png">
+
+	<!--Stylesheets-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" href="/style.css">
+	<link rel="icon" href="/images/MMG.png">
+
+	<!--Libraries-->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" defer>
+
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js">
+
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js">
+
+	</script>
+
+	<!--JS Scripts-->
+	<script src="/index.js" defer>
+
+	</script>
+	<script src="/games.js" defer>
+
+	</script>
+	<script src="/function.js" defer>
+
+	</script>
+	<script src="/businesses.js" defer>
+
+	</script>
+
+	<script type="text/javascript">
+		var app = angular.module("myApp", ['ngRoute']);
+
+		//controllers
+		app.controller("HomeController", function($scope) {
+			$scope.Name = "Welcome to Money Maker Game!";
+			$scope.username = username;
+		});
+		app.controller("StuffController", function($scope) {
+			$scope.exp = exp;
+			$scope.points = points;
+			$scope.keeplevels = keepLevels();
+		});
+		app.controller("ShopController", function($scope) {});
+		app.controller("GamesController", function($scope) {});
+		app.controller("OptionsController", function($scope) {
+			$scope.username = username;
+		});
+
+		//routers
+		app.config(function($routeProvider) {
+
+			$routeProvider
+
+			.when('/', {
+				templateUrl : 'pages/home.html',
+				controller  : 'HomeController'
+			})
+
+			.when('/your-stuff', {
+				templateUrl : 'pages/your-stuff.html',
+				controller  : 'StuffController'
+			})
+
+			.when('/shop', {
+				templateUrl : 'pages/shop.html',
+				controller  : 'ShopController'
+			})
+
+			.when('/games', {
+				templateUrl : 'pages/games.html',
+				controller  : 'GamesController'
+			})
+
+			.when('/options', {
+				templateUrl : 'pages/options.html',
+				controller  : 'OptionsController'
+			})
+
+			.otherwise({redirectTo: '/'});
+
+		});
+	</script>
+
+</head>
+
+<body>
+
+	<!--Navbar-->
+	<nav role="navigation" class="navbar navbar-light bg-light navbar-expand-lg sticky" id="navbarSupportedContent">
+
+		<!--Main Badge-->
+		<a class="navbar-brand" href="#/">
+			<img src="/images/MMG.png" width="30" height="30" loading="lazy" />
+      Argenia
+    </a>
+
+    <!--Navbar Items-->
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#/your-stuff">Your Stuff</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/shop">Shop & Businesses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/games">Games & Activities</a>
+				</li>
+        <li class="nav-item">
+          <a class="nav-link" href="#options">Options & Customisation</a>
+        </li>
+      </ul>
+    </div>
+
+    <!--Event Notifications-->
+    <div class="dropdown nav">
+      Event Notifications
+      <div class="dropdown-content">
+        <p onclick="Swal.fire('The site was refurbished and renamed.')">Site refurbished!</p>
+      </div>
+    </div>
+
+  </nav>
+
+  <!--Banner-->
+  <br>
+  <div class="container">
+    <div class="alert alert-warning bg-orange" role="alert">
+      <center>Happy Spooktober Everyone!</center>
+    </div>
+  </div>
+
+  <!--Back to top button-->
+  <a onclick="toTop()" id="backtotop">Top</a>
+
+  <hr>
+
+	<!--Welcome screen-->
+	<script type="text/ng-template" id="pages/home.html">
+
+		<center><h1 style="text-decoration:underline;font-style:italic;">Welcome back, {{ username }}!</h1></center>
+		<center><h6>New? Check out the options above!</h6></center><hr>
+		<p style="font-style:italic;">"Unnamed User"? Give yourself a username over <a href="#/options">here</a>!</p>
+	
+	</script>
+	
+	<!--User's details-->
+	<script type="text/ng-template" id="pages/your-stuff.html">
+				
+		<center><h1 style="text-decoration:underline;">Your stuff</h1></center>
+		<center><h6>All your current stats.</h6></center><hr>
+
+			<!--Argens & EXP-->
+			<h2>(Money) Argens</h2>
+			<p id="points">{{ points || 0 }}</p>
+			<button onclick="clearM()">Reset points</button><br>
+
+			<hr>
+
+			<h2>EXP Level</h2>
+			<p id="exp">{{ exp || 0 }}</p>
+			<button onclick="clearE()">Reset EXP</button>
+
+			<hr>
+
+			<!--Collections-->
+			<div id="collectionlist">
+				<h2 id="collection">Collection</h2>
+				<h6 style="font-style:italic;">These are all the things you bought at the shop.</h6>
+				{{ keeplevels() }}
+			</div>
+
+			<button onclick="removeCollection()">Remove all items</button>
+
+			<hr>
+
+			<h6 style="font-style:italic;">Want to earn money? Why not head over to the <a href="#/games">games</a> section!</h6>
+
+	</script>
+
+	<!--Shop-->
+	<script type="text/ng-template" id="pages/shop.html">
+
+		<center><h1 style="text-decoration:underline;">Shop & Businesses</h1></center>
+		<center><h6>Check out the shop and start a business!</h6></center><hr>
+
+			<!--Shop-->
+      <h2>Shop</h2>
+			<button onclick="preventMultiBuy()">Show shop</button><br>
+
+			<div id="showshop" hidden="hidden">
+				<br><h3>Items</h3>
+
+					<div class="card" style="width:18rem;">
+						<div class="card-body">
+							<h6>Name: Pan</h6>
+							<h6>Price: 15 Argens</h6>
+							<h6>Description: Cook food with the state-of-the-art pan!</h6>
+							<button class="onhover" title="Buy a pan to cook food!" onclick="buy('Pan', 15, 'panBuy', 'pan')" id="panBuy">Buy!</button><br><br>
+						</div>
+					</div><br>
+
+					<div class="card" style="width:18rem;">
+						<div class="card-body">
+							<h6>Name: Car</h6>
+							<h6>Price: 2000 Argens</h6>
+							<h6>Description: Use a car for the taxi job!</h6>
+							<button class="onhover" title="Buy a car to do the taxi job!" onclick="buy('Car', 2000, 'carBuy', 'car')" id="carBuy">Buy!</button>
+						</div>
+					</div><br>
+
+					<div class="card" style="width:18rem;">
+						<div class="card-body">
+							<h6>Name: Van</h6>
+							<h6>Price: 5000 Argens</h6>
+							<h6>Description: Use a van for the delivery job!</h6>
+							<button class="onhover" title="Buy a van to deliver parcels!" onclick="buy('Van', 5000, 'vanBuy', 'van')" id="vanBuy">Buy!</button>
+						</div>
+					</div><br>
+
+					<div class="card" style="width:18rem;">
+						<div class="card-body">
+							<h6>Name: Garden</h6>
+							<h6>Price: 1000 Argens</h6>
+							<h6>Description: Get a garden so you can grow plants!</h6>
+							<button class="onhover" title="Buy a garden to grow plants!" onclick="buy('Garden', 1000, 'gardenBuy', 'garden')" id="gardenBuy">Buy!</button>
+						</div>
+					</div><br>
+				</div>
+
+			<hr>
+
+			<!--Businesses-->
+      <h2 id="businesses">Businesses</h2>
+			<h6>Use a business to earn extra money!</h6>
+			<button onclick="businessname()">Show business</button><br>
+
+			<div id="showbus" hidden="hidden">
+				<br><h3 id="infobus">Business info</h3>
+				<h4 id="busnamespace">---</h4>
+				<h4 id="busdescspace">---</h4>
+
+				<h3>Options</h3>
+				<h4>Start business - 100 Argens</h4>
+				<button class="onhover" title="Start your business so you can claim money every day!" onclick="buyBusiness(100, 'business', 'smallbus')" id="smallbus">Start a business</button><br><br>
+
+				<h4>Claim points</h4>
+				<button class="onhover" title="Claim money from your business!" onclick="claimpoints()" id="busclaim">Claim points</button><br><br>
+
+				<h4>Pay employees</h4>
+				<button class="onhover" title="Pay your employees so you can claim money." onclick="payEmployee()" id="buspayemployees">Pay your employees</button><br><br>
+
+				<h4>Upgrade business - 50 Argens</h4>
+				<button class="onhover" title="Upgrade your business to increase it's money output." onclick="upgradeBusiness()" id="upbus">Upgrade your business</button><br><br>
+
+				<h4>Business details</h4>
+				<button onclick="namebus()" id="namebus">Name</button>
+				<button onclick="descbus()" id="descbus">Description</button><br><br>
+
+				<h4>Delete business</h4>
+				<button class="onhover" title="Delete your business - there is no going back!" onclick="delbus()" id="delbus">Delete business</button>
+			</div>
+
+	</script>
+
+		<!--Games & Activities-->
+	<script type="text/ng-template" id="pages/games.html">
+
+		<center><h1 style="text-decoration:underline;">Games and Activities</h1></center>
+		<center><h6>Play games to earn Argens!</h6></center><hr>
+
+			<!--Games-->
+      <h2 id="games">Games</h2>
+
+      <h4>Fruit or vegetable? - no coins required.</h4>
+      <button onclick="foodGame()" id="fov">Get 5 coins by identifying foods!</button><br><br>
+
+      <h4>Reptile or mammal? - no coins required.</h4>
+      <button onclick="animalGame()" id="rom">Get 5 coins by identifying animals!</button><br><br>
+
+      <h4>Unreverse words - no coins required.</h4>
+      <button onclick="unreverse()" id="urw">Get 10 coins by unreversing words!</button><br><br>
+
+      <h4>Unreverse words (Hard version) - no coins required.</h4>
+      <button onclick="unreverseHARD()" id="urwH">Get 15 coins by unreversing words!</button><br><br>
+
+      <h4>Answer riddles - no coins required.</h4>
+      <button onclick="riddleGame()" id="riddles">Get 15 coins by solving riddles!</button>
+
+      <hr>
+
+      <!--Activities-->
+      <h2>Activities</h2>
+
+      <h4>Offer taxi rides - Car required.</h4>
+      <button onclick="taxi()" id="taxirides">Get coins by driving a taxi! (Drive safely!)</button><br><br>
+
+      <h4>Make food for people - Pan required.</h4>
+      <button onclick="cook()" id="makefood">Get coins by making food!</button><br><br>
+
+      <h4>Grow plants - Garden required.</h4>
+      <button onclick="growplants()" id="garden">Get coins by growing plants!</button><br><br>
+
+      <h4>Harvest apples - Garden required.</h4>
+      <button onclick="harvestapples()" id="apples">Get coins by harvesting apples!</button><br><br>
+
+      <h4>Deliver packages - Van required.</h4>
+      <button onclick="delivery()" id="deliverpackages">Get coins by delivering packages!</button>
+
+	
+	</script>
+
+	<!--Options & Customisation-->
+	<script type="text/ng-template" id="pages/options.html">
+
+		<center><h1 style="text-decoration:underline;">Options</h1></center>
+		<center><h6>Customise your gameplay!</h6></center><hr>
+
+			<h2>Set/Change username</h2>
+      <p id="yourname">{{ username }}</p>
+      <button class="onhover" title="This name will be used in the chat." onclick="setName()">Change username</button><br>
+
+			<hr>
+
+			<!--Customisation-->
+      <h2 id="customisation">Customisation</h2>
+
+      <h4>Add background colour (HEX)</h4>
+      <button class="onhover" title="Change your background colour." onclick="hexBG()" id="BGchange">Change background</button><br><br>
+
+      <h4>Add foreground colour (HEX)</h4>
+      <button class="onhover" title="Change your foreground colour." onclick="hexFG()" id="FGchange">Change foreground</button><br><br>
+
+      <h4>Add button colour (HEX)</h4>
+      <button class="onhover" title="Change your button colour." onclick="hexB()" id="Bchange">Change button</button><br><br>
+        
+      <h4>Reset background & foreground colour</h4>
+      <button class="onhover" title="Reset to default colours - there is no going back." onclick="backgroundremove()" id="BGremove">Reset background & foreground</button>
+
+      <hr>
+
+      <!--And finally, other options.-->
+      <h2>Other</h2>
+
+      <h4>Redeem codes</h4>
+      <button class="onhover" title="Redeem a promo code for coins!" onclick="redeem()" id="rac">Redeem a code</button><br><br>
+
+      <h4>Credits</h4>
+      <button class="onhover" title="See people who have contributed to MMG throughout it's development." onclick="Swal.fire('Credits <br><br> Developers - Drags890, KalibreKirby & Bob8552 <br><br> Testers and users - Lord_7302, lightblueman310, Ezekia & Dominic')" id="credits">See credits</button>
+
+	
+	</script>
+
+	<!--Lastly, make the view!-->
+	<div class="card" style="width:1109px;margin:auto;">
+		<div class="card-body">
+			<div ng-view></div>
+		</div>
+	</div>
+    
+  <hr>
+
+	<!--Footer-->
+  <footer>Please expect bugs during updates | Nexark Corporation © 2020 | V0.1.2</footer>
+
+</body>
+
+</html>
