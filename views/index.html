@@ -16,7 +16,7 @@
 	<!--Embed META-->
 	<meta property="og:site_name" content="Argenia">
 	<meta property="og:url" content="https://argenia.bob8552.repl.co/">
-	<meta property="og:title" content="Argenia | A fun web game">
+	<meta property="og:title" content="Argenia | A web game">
 	<meta property="og:description" content="Argenia is a game about earning money and buying virtual items.">
 	<meta property="og:type" content="website">
 	<meta name="og:image" itemprop="image" content="/images/MMG.png">
@@ -70,6 +70,7 @@
 		app.controller("OptionsController", function($scope) {
 			$scope.username = username;
 		});
+		app.controller("InfoController", function($scope) {});
 
 		//routers
 		app.config(function($routeProvider) {
@@ -99,6 +100,11 @@
 			.when('/options', {
 				templateUrl : 'pages/options.html',
 				controller  : 'OptionsController'
+			})
+
+			.when('/info', {
+				templateUrl : 'pages/info.html',
+				controller  : 'InfoController'
 			})
 
 			.otherwise({redirectTo: '/'});
@@ -132,7 +138,10 @@
           <a class="nav-link" href="#/games">Games & Activities</a>
 				</li>
         <li class="nav-item">
-          <a class="nav-link" href="#options">Options & Customisation</a>
+          <a class="nav-link" href="#/options">Options & Customisation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/info">Information</a>
         </li>
       </ul>
     </div>
@@ -158,8 +167,6 @@
   <!--Back to top button-->
   <a onclick="toTop()" id="backtotop">Top</a>
 
-  <hr>
-
 	<!--Welcome screen-->
 	<script type="text/ng-template" id="pages/home.html">
 
@@ -176,9 +183,9 @@
 		<center><h6>All your current stats.</h6></center><hr>
 
 			<!--Argens & EXP-->
-			<h2>(Money) Argens</h2>
+			<h2>Currency - Argens</h2>
 			<p id="points">{{ points || 0 }}</p>
-			<button onclick="clearM()">Reset points</button><br>
+			<button onclick="clearM()">Reset argens</button><br>
 
 			<hr>
 
@@ -211,10 +218,20 @@
 
 			<!--Shop-->
       <h2>Shop</h2>
-			<button onclick="preventMultiBuy()">Show shop</button><br>
+			<h6>Buy items that can enhance your gameplay!</h6>
+			<button onclick="preventMultiBuy()">Load shop</button><br>
 
 			<div id="showshop" hidden="hidden">
 				<br><h3>Items</h3>
+
+				<div class="card" style="width:18rem;">
+						<div class="card-body">
+							<h6>Name: Frisbee</h6>
+							<h6>Price: 15 Argens</h6>
+							<h6>Description: A neat toy!</h6>
+							<button class="onhover" title="Buy a frisbee!" onclick="buy('Frisbee', 15, 'frisbeeBuy', 'frisbee')" id="frisbeeBuy">Buy!</button>
+						</div>
+					</div><br>
 
 					<div class="card" style="width:18rem;">
 						<div class="card-body">
@@ -246,9 +263,9 @@
 					<div class="card" style="width:18rem;">
 						<div class="card-body">
 							<h6>Name: Garden</h6>
-							<h6>Price: 1000 Argens</h6>
+							<h6>Price: 500 Argens</h6>
 							<h6>Description: Get a garden so you can grow plants!</h6>
-							<button class="onhover" title="Buy a garden to grow plants!" onclick="buy('Garden', 1000, 'gardenBuy', 'garden')" id="gardenBuy">Buy!</button>
+							<button class="onhover" title="Buy a garden to grow plants!" onclick="buy('Garden', 500, 'gardenBuy', 'garden')" id="gardenBuy">Buy!</button>
 						</div>
 					</div><br>
 				</div>
@@ -258,7 +275,7 @@
 			<!--Businesses-->
       <h2 id="businesses">Businesses</h2>
 			<h6>Use a business to earn extra money!</h6>
-			<button onclick="businessname()">Show business</button><br>
+			<button onclick="businessname()">Load business</button><br>
 
 			<div id="showbus" hidden="hidden">
 				<br><h3 id="infobus">Business info</h3>
@@ -330,7 +347,10 @@
       <button onclick="harvestapples()" id="apples">Get coins by harvesting apples!</button><br><br>
 
       <h4>Deliver packages - Van required.</h4>
-      <button onclick="delivery()" id="deliverpackages">Get coins by delivering packages!</button>
+      <button onclick="delivery()" id="deliverpackages">Get coins by delivering packages!</button><br><br>
+
+			<h4>Frisbee game!</h4>
+      <button onclick="frisb()" id="frisbeeg">Play with your frisbee!</button>
 
 	
 	</script>
@@ -376,6 +396,19 @@
 	
 	</script>
 
+	<!--Information-->
+	<script type="text/ng-template" id="pages/info.html">
+
+		<center><h1 style="text-decoration:underline;">Information</h1></center>
+		<center><h6>All info about Argenia.</h6></center><hr>
+
+		<p>Argenia is a web game based on earning money and buying items. It is run by Nexark, a development group founded recently in August 2020.</p>
+
+		<iframe src="https://discord.com/widget?id=752090470087131236&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+		<p>Join us on Discord over <a href="https://discord.gg/HwPceKs">here</a>!</p>
+	
+	</script>
+
 	<!--Lastly, make the view!-->
 	<div class="card" style="width:1109px;margin:auto;">
 		<div class="card-body">
@@ -386,7 +419,7 @@
   <hr>
 
 	<!--Footer-->
-  <footer>Please expect bugs during updates | Nexark Corporation © 2020 | V0.1.2</footer>
+  <footer>Please expect bugs during updates | Nexark Corporation © 2020 | V0.2.0</footer>
 
 </body>
 

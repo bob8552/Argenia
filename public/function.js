@@ -216,6 +216,7 @@ function removeCollection() {
         localStorage.removeItem('Pan');
         localStorage.removeItem('Garden');
         localStorage.removeItem('Van');
+				localStorage.removeItem('Frisbee');
 
         if (document.getElementById('noitem')) {
           document.getElementById('noitem').remove();
@@ -235,6 +236,10 @@ function removeCollection() {
 
         if (document.getElementById('Van')) {
           document.getElementById('Van').remove();
+        }
+
+				if (document.getElementById('Frisbee')) {
+          document.getElementById('Frisbee').remove();
         }
 
         var header = document.getElementById('collectionlist');

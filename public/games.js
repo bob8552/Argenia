@@ -36,7 +36,7 @@ function fireEvent() {
 
     } else if (random === 2 && !accessCookie("hasEmployeePay") && localStorage.getItem("business")) { //Pay employees
 
-      Swal.fire("You have not payed your employees, so 50 argens have been fined from you to pay your employees. Remember to pay your employees every day!")
+      Swal.fire("[YOUR BUSINESS]- You have not payed your employees, so 50 argens have been fined from you to pay your employees. Remember to pay your employees every day!")
       if (parseInt(points, 10) > 50) removepoints(50);
       createCookie("hasEmployeePay", true);
 
@@ -382,6 +382,44 @@ function cook() {
   setTimeout(() => {
     document.getElementById("makefood").removeAttribute("disabled");
     document.getElementById("makefood").innerHTML = "Get points by making food!";
+  }, 15000);
+}
+
+//Frisbee game
+function frisb() {
+  if (!localStorage.getItem("Frisbee")) return Swal.fire("You need a frisbee first, obviously.");
+
+  var random = Math.floor(Math.random() * 13) + 2;
+  var randomIndex;
+
+  exp = exp + 1;
+  localStorage.setItem("exp", exp);
+
+  if (parseInt(exp, 10) >= 0 && parseInt(exp, 10) <= 10) {
+    randomIndex = Math.floor(Math.random() * 4);
+  }
+  else if (parseInt(exp, 10) >= 10 && parseInt(exp, 10) <= 30) {
+    randomIndex = Math.floor(Math.random() * 6);
+  }
+  else if (parseInt(exp, 10) >= 30) {
+    randomIndex = Math.floor(Math.random() * 8);
+  }
+
+  if (randomIndex === 1) {
+    Swal.fire("You missed. +1 EXP");
+  }
+  else if (randomIndex === 2) {
+    Swal.fire("You hit the target! +4 EXP");
+		exp = exp + 4;
+  	localStorage.setItem("exp", exp);
+  }
+
+  document.getElementById("frisbeeg").setAttribute("disabled", "disabled");
+  document.getElementById("frisbeeg").innerHTML = "Please wait 15 seconds.";
+
+  setTimeout(() => {
+    document.getElementById("frisbeeg").removeAttribute("disabled");
+    document.getElementById("frisbeeg").innerHTML = "Play with your frisbee!";
   }, 15000);
 }
 

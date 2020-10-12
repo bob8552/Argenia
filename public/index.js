@@ -11,7 +11,7 @@ function keepLevels() {
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
-			textNode.innerHTML = "Car";
+			textNode.innerHTML = "Car | Tip: Use it in the taxi game!";
 			textNode.id = "Car";
 			header.appendChild(textNode);
 
@@ -20,7 +20,7 @@ function keepLevels() {
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
-			textNode.innerHTML = "Pan";
+			textNode.innerHTML = "Pan | Tip: Use it in the cooking game!";
 			textNode.id = "Pan";
 			header.appendChild(textNode);
 
@@ -29,7 +29,7 @@ function keepLevels() {
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
-			textNode.innerHTML = "Garden";
+			textNode.innerHTML = "Garden | Tip: Use it in the plants game!";
 			textNode.id = "Garden";
 			header.appendChild(textNode);
 
@@ -38,8 +38,17 @@ function keepLevels() {
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
-			textNode.innerHTML = "Van";
+			textNode.innerHTML = "Van | Tip: Use it in the delivery game!";
 			textNode.id = "Van";
+			header.appendChild(textNode);
+
+		}
+		if (localStorage.getItem('Frisbee')) {
+
+			var header = document.getElementById('collectionlist');
+			var textNode = document.createElement("p");
+			textNode.innerHTML = "Frisbee | A cool toy, try playing with it!";
+			textNode.id = "Frisbee";
 			header.appendChild(textNode);
 
 		}
@@ -50,6 +59,7 @@ function keepLevels() {
 			&& !localStorage.getItem('Pan')
 			&& !localStorage.getItem('Garden')
 			&& !localStorage.getItem('Van')
+			&& !localStorage.getItem('Frisbee')
 
 		) {
 
@@ -93,6 +103,12 @@ function preventMultiBuy() {
       document.getElementById('vanBuy').setAttribute('disabled', 'disabled');
 
 		}
+		if (localStorage.getItem('Frisbee')) {
+
+      document.getElementById('frisbeeBuy').innerHTML = "You bought this item.";
+      document.getElementById('frisbeeBuy').setAttribute('disabled', 'disabled');
+
+		}
 
 }
 
@@ -101,7 +117,7 @@ function preventMultiBuy() {
 var points = 1;
 var exp = 1;
 //Username...
-var username = "Unnamed User"
+var username = "Unnamed User";
 
 //Keep stuff
 if (localStorage.getItem('points')) {
@@ -126,14 +142,14 @@ if (localStorage.getItem('username')) {
 //All point related functions
 function addpoints(n = 0) {
 
-	points = parseInt(points, 10) + n;
+	points = points + n;
 	localStorage.setItem('points', points);
 
 }
 
 function removepoints(n = 0) {
 
-	points = parseInt(points, 10) - n;
+	points = points - n;
 	localStorage.setItem('points', points);
 
 }
