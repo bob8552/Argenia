@@ -48,6 +48,9 @@
 	<script src="/function.js" defer>
 
 	</script>
+	<script src="/job.js" defer>
+
+	</script>
 	<script src="/businesses.js" defer>
 
 	</script>
@@ -67,6 +70,9 @@
 		});
 		app.controller("ShopController", function($scope) {});
 		app.controller("GamesController", function($scope) {});
+		app.controller("JobsController", function($scope) {
+			$scope.Job = localStorage.getItem("Job") || "You dont have a job.";
+		});
 		app.controller("OptionsController", function($scope) {
 			$scope.username = username;
 		});
@@ -90,6 +96,11 @@
 			.when('/shop', {
 				templateUrl : 'pages/shop.html',
 				controller  : 'ShopController'
+			})
+
+			.when('/jobs', {
+				templateUrl : 'pages/jobs.html',
+				controller  : 'JobsController'
 			})
 
 			.when('/games', {
@@ -133,6 +144,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#/shop">Shop & Businesses</a>
+        </li>
+				<li class="nav-item">
+          <a class="nav-link" href="#/jobs">Jobs</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#/games">Games & Activities</a>
@@ -224,8 +238,9 @@
 			<div id="showshop" hidden="hidden">
 				<br><h3>Items</h3>
 
-				<div class="card" style="width:18rem;">
+				<div class="card" style="width:25rem;">
 						<div class="card-body">
+							<image src="images/Frisbee.png" style="float:right;width:150px;"></image>
 							<h6>Name: Frisbee</h6>
 							<h6>Price: 15 Argens</h6>
 							<h6>Description: A neat toy!</h6>
@@ -233,8 +248,9 @@
 						</div>
 					</div><br>
 
-					<div class="card" style="width:18rem;">
+					<div class="card" style="width:25rem;">
 						<div class="card-body">
+							<image src="images/Pan.png" style="float:right;width:150px;"></image>
 							<h6>Name: Pan</h6>
 							<h6>Price: 15 Argens</h6>
 							<h6>Description: Cook food with the state-of-the-art pan!</h6>
@@ -242,8 +258,9 @@
 						</div>
 					</div><br>
 
-					<div class="card" style="width:18rem;">
+					<div class="card" style="width:25rem;">
 						<div class="card-body">
+							<image src="images/Car.png" style="float:right;width:150px;"></image>
 							<h6>Name: Car</h6>
 							<h6>Price: 2000 Argens</h6>
 							<h6>Description: Use a car for the taxi job!</h6>
@@ -390,9 +407,33 @@
       <h4>Redeem codes</h4>
       <button class="onhover" title="Redeem a promo code for coins!" onclick="redeem()" id="rac">Redeem a code</button><br><br>
 
-      <h4>Credits</h4>
-      <button class="onhover" title="See people who have contributed to MMG throughout it's development." onclick="Swal.fire('Credits <br><br> Developers - Drags890, KalibreKirby & Bob8552 <br><br> Testers and users - Lord_7302, lightblueman310, Ezekia & Dominic')" id="credits">See credits</button>
+      <h3>Credits</h3>
+			Developers - Drags890, KalibreKirby & Bob8552 <br><br>
+			Testers and users - Lord_7302, lightblueman310, Ezekia & Dominic
 
+	
+	</script>
+
+	<!--Jobs-->
+	<script type="text/ng-template" id="pages/jobs.html">
+
+		<center><h1 style="text-decoration:underline;">Jobs</h1></center>
+		<center><h6>Do a job for daily EXP and Argens!</h6></center><hr>
+
+		<h3>Jobs</h3>
+		<div class="card" style="width:25rem;">
+			<div class="card-body">
+				<h6>Job: Chef</h6>
+				<h6>Salary: 25 Argen/day</h6>
+				<h6>Requirment: 35 EXP</h6>
+				<button class="onhover" title="Work as chef." onclick="addJob('Chef', 35)">Apply!</button>
+			</div>
+		</div><br>
+
+		<h3>Your job</h3>
+		<p style="font-style:italic;" id="jb">{{ Job }}</p>
+		<button class="onhover" title="Do your job" onclick="doJob()">Work</button>
+		<button class="onhover" title="Quit your job." onclick="quitJob()">Quit job</button>
 	
 	</script>
 
@@ -419,7 +460,7 @@
   <hr>
 
 	<!--Footer-->
-  <footer>Please expect bugs during updates | Nexark Corporation © 2020 | V0.2.0</footer>
+  <footer>Please expect bugs during updates | Nexark Corporation © 2020 | V0.3.0</footer>
 
 </body>
 
