@@ -70,6 +70,48 @@ if (accessCookie("jd")) return Swal.fire("Please wait 24 hours before you can wo
 
 		});
 
+	} else if (Job === "Waiter") {
+
+		const scrambled = ["evres", "doof", "etalp", "stop", "remotsuc", "daerb", "tnialpmoc", "yrruc"];
+		const unscrambled = ["serve", "food", "plate", "pots", "customer", "bread", "complaint", "curry"];
+
+		var randomNumber = Math.floor(Math.random() * 8);
+		//please update index
+		var random = scrambled[randomNumber];
+		var solution = unscrambled[randomNumber];
+
+		Swal.fire({
+			title: "Unreverse words - Work as a waiter",
+			text: random,
+			input: 'text',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			confirmButtonText: 'Check answer',
+
+			preConfirm: async (input) => {
+
+				if (input.toLowerCase() === solution) {
+
+					addpoints(30);
+					exp = exp + 10;
+					localStorage.setItem("exp", exp);
+
+					Swal.fire("Well done, you have been paid 30 Argens. +10 EXP");
+					createCookie("jd", "TRUE");
+
+
+				} else {
+
+					Swal.fire("Terrible effort, you failed. Try again in 24 hours.");
+					createCookie("jd", "TRUE");
+
+				}
+
+			}
+
+		});
+
 	}
 
 
