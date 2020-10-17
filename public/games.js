@@ -605,7 +605,7 @@ function growplants() {
 
     }
 
-    addcoins(random);
+    addpoints(random);
     Swal.fire(success);
 
   }
