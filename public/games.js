@@ -1,3 +1,4 @@
+// Games & Activities
 console.log("Games loaded");
 //localStorage.removeItem('Apple');
 

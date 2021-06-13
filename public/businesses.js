@@ -1,7 +1,10 @@
-//Business feature...
-console.log("Businesses loaded");
+//Business feature
+console.log("Businesses module loaded");
+
+// Create a local variable of the business level variable
 var buslevellocal = 0;
 
+// Create a business level variable if not available
 if (localStorage.getItem('buslevel')) {
 
   buslevellocal = parseInt(localStorage.getItem('buslevel'), 10);
@@ -13,6 +16,7 @@ if (localStorage.getItem('buslevel')) {
 }
 
 
+// Set the user's business name
 function businessname() {
 
 		document.getElementById("showbus").removeAttribute("hidden");
@@ -33,6 +37,7 @@ function businessname() {
 
 }
 
+// Create a cookie, only used for timed purposes
 function createCookie(cookieName, cookieValue) {
 
   //document.cookie = cookieName + "=" + cookieValue + "; expires=" + '2022-05-28T15:42:44.000Z';
@@ -44,6 +49,7 @@ function createCookie(cookieName, cookieValue) {
 
 }
 
+// Access a cookie
 function accessCookie(cookieName) {
 
   var name = cookieName + "=";
@@ -60,6 +66,7 @@ function accessCookie(cookieName) {
 
 }
 
+// User obtains a business
 function buyBusiness(price, name, elementToDisable) {
 
   if (parseInt(points, 10) < price) return Swal.fire("You don't have enough money!");
@@ -79,6 +86,7 @@ function buyBusiness(price, name, elementToDisable) {
 
 }
 
+// User upgrades a business
 function upgradeBusiness() {
 
   if (parseInt(points, 10) < 50) return Swal.fire("You don't have enough money!");
@@ -148,6 +156,7 @@ function namebus() {
 
 }
 
+// Add a description to the user's business.
 function descbus() {
 
   if (!localStorage.getItem("business")) return Swal.fire("You don't own a business.");
@@ -173,6 +182,7 @@ function descbus() {
 
 }
 
+// Function to delete the user's business, remove it from the localStorage and remove information from the page.
 function delbus() {
 
   if (!localStorage.getItem("business")) return Swal.fire("You don't own a business.");
@@ -190,20 +200,19 @@ function delbus() {
 
       if (result.value) {
 
-        //Remove localstorage
+        
         Swal.fire("Your business has been deleted.");
 
+				// Remove localstorage items
         localStorage.removeItem("business");
         if (localStorage.getItem("businessname")) localStorage.removeItem("businessname");
         if (localStorage.getItem("businessdesc")) localStorage.removeItem("businessdesc");
       
         //Change elements
         document.getElementById("infobus").innerHTML = "";
-      
         document.getElementById('smallbus').removeAttribute('disabled');
         document.getElementById("busnamespace").innerHTML = ``;
         document.getElementById("busdescspace").innerHTML = ``;
-      
         document.getElementById('smallbus').innerHTML = "Buy a business";
 
       }

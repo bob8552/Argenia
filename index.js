@@ -26,9 +26,9 @@ app.get("/", (req, res) => {
   }
 });
 
-//Promo code (GET)
+//Promo code (GET request)
 app.get("/promo", (req, res) => {
-  res.send("Spooktober");
+  res.send("NUTTLES");
 });
 
 //App listen

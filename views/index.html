@@ -39,21 +39,12 @@
 	</script>
 
 	<!--JS Scripts-->
-	<script src="/index.js" defer>
-
-	</script>
-	<script src="/games.js" defer>
-
-	</script>
-	<script src="/function.js" defer>
-
-	</script>
-	<script src="/job.js" defer>
-
-	</script>
-	<script src="/businesses.js" defer>
-
-	</script>
+	<script src="/index.js" defer></script>
+	<script src="/games.js" defer></script>
+	<script src="/function.js" defer></script>
+	<script src="/job.js" defer></script>
+	<script src="/businesses.js" defer></script>
+	<script src="/options/customisation.js"></script>
 
 	<script type="text/javascript">
 		var app = angular.module("myApp", ['ngRoute']);
@@ -170,11 +161,14 @@
 
   </nav>
 
+
+	<hr>
+
   <!--Banner-->
   <br>
   <div class="container">
     <div class="alert alert-warning bg-orange" role="alert">
-      <center>Happy Spooktober Everyone!</center>
+      <center>The site is being recoded!</center>
     </div>
   </div>
 
@@ -184,7 +178,7 @@
 	<!--Welcome screen-->
 	<script type="text/ng-template" id="pages/home.html">
 
-		<center><h1 style="text-decoration:underline;font-style:italic;">Welcome back, {{ username }}!</h1></center>
+		<center><h1 style="text-decoration:underline;font-style:italic;">Welcome back,!</h1></center>
 		<center><h6>New? Check out the options above!</h6></center><hr>
 		<p style="font-style:italic;">"Unnamed User"? Give yourself a username over <a href="#/options">here</a>!</p>
 	
@@ -233,7 +227,7 @@
 			<!--Shop-->
       <h2>Shop</h2>
 			<h6>Buy items that can enhance your gameplay!</h6>
-			<button onclick="preventMultiBuy()">Load shop</button><br>
+			<button onclick="preventMultiBuy()">Show Shop Section</button><br>
 
 			<div id="showshop" hidden="hidden">
 				<br><h3>Items</h3>
@@ -294,7 +288,7 @@
 			<!--Businesses-->
       <h2 id="businesses">Businesses</h2>
 			<h6>Use a business to earn extra money!</h6>
-			<button onclick="businessname()">Load business</button><br>
+			<button onclick="businessname()">Show Business Section</button><br>
 
 			<div id="showbus" hidden="hidden">
 				<br><h3 id="infobus">Business info</h3>
@@ -333,43 +327,43 @@
 			<!--Games-->
       <h2 id="games">Games</h2>
 
-      <h4>Fruit or vegetable? - no coins required.</h4>
-      <button onclick="foodGame()" id="fov">Get 5 coins by identifying foods!</button><br><br>
+      <h3>Fruit or vegetable? - no coins required - +5 coins</h3>
+      <button onclick="foodGame()" id="fov">Play Game</button><br><br>
 
-      <h4>Reptile or mammal? - no coins required.</h4>
-      <button onclick="animalGame()" id="rom">Get 5 coins by identifying animals!</button><br><br>
+      <h3>Reptile or mammal? - no coins required - +5 coins</h3>
+      <button onclick="animalGame()" id="rom">Play Game</button><br><br>
 
-      <h4>Unreverse words - no coins required.</h4>
-      <button onclick="unreverse()" id="urw">Get 10 coins by unreversing words!</button><br><br>
+      <h3>Unreverse words - no coins required - +10 coins</h3>
+      <button onclick="unreverse()" id="urw">Play Game</button><br><br>
 
-      <h4>Unreverse words (Hard version) - no coins required.</h4>
-      <button onclick="unreverseHARD()" id="urwH">Get 15 coins by unreversing words!</button><br><br>
+      <h3>Unreverse words (Hard) - no coins required - +15 coins</h3>
+      <button onclick="unreverseHARD()" id="urwH">Play Game</button><br><br>
 
-      <h4>Answer riddles - no coins required.</h4>
-      <button onclick="riddleGame()" id="riddles">Get 15 coins by solving riddles!</button>
+      <h3>Answer riddles - no coins required - +15 coins</h3>
+      <button onclick="riddleGame()" id="riddles">Play Game</button>
 
       <hr>
 
       <!--Activities-->
       <h2>Activities</h2>
 
-      <h4>Offer taxi rides - Car required.</h4>
-      <button onclick="taxi()" id="taxirides">Get coins by driving a taxi! (Drive safely!)</button><br><br>
+      <h3>Offer taxi rides - Car required.</h3>
+      <button onclick="taxi()" id="taxirides">Do Activity</button><br><br>
 
-      <h4>Make food for people - Pan required.</h4>
-      <button onclick="cook()" id="makefood">Get coins by making food!</button><br><br>
+      <h3>Make food for people - Pan required.</h3>
+      <button onclick="cook()" id="makefood">Do Activity</button><br><br>
 
-      <h4>Grow plants - Garden required.</h4>
-      <button onclick="growplants()" id="garden">Get coins by growing plants!</button><br><br>
+      <h3>Grow plants - Garden required.</h3>
+      <button onclick="growplants()" id="garden">Do Activity</button><br><br>
 
-      <h4>Harvest apples - Garden required.</h4>
-      <button onclick="harvestapples()" id="apples">Get coins by harvesting apples!</button><br><br>
+      <h3>Harvest apples - Garden required.</h3>
+      <button onclick="harvestapples()" id="apples">Do Activity</button><br><br>
 
-      <h4>Deliver packages - Van required.</h4>
-      <button onclick="delivery()" id="deliverpackages">Get coins by delivering packages!</button><br><br>
+      <h3>Deliver packages - Van required.</h3>
+      <button onclick="delivery()" id="deliverpackages">Do Activity</button><br><br>
 
-			<h4>Frisbee game!</h4>
-      <button onclick="frisb()" id="frisbeeg">Play with your frisbee!</button>
+			<h3>Throw your frisbee and see what happens</h3>
+      <button onclick="frisb()" id="frisbeeg">Do Activity</button>
 
 	
 	</script>
@@ -389,25 +383,25 @@
 			<!--Customisation-->
       <h2 id="customisation">Customisation</h2>
 
-      <h4>Add background colour (HEX)</h4>
-      <button class="onhover" title="Change your background colour." onclick="hexBG()" id="BGchange">Change background</button><br><br>
+      <h4>Change background colour (HEX)</h4>
+      <button class="onhover" title="Change your background colour." onclick="hexBG()" id="BGchange">Change</button><br><br>
 
-      <h4>Add foreground colour (HEX)</h4>
-      <button class="onhover" title="Change your foreground colour." onclick="hexFG()" id="FGchange">Change foreground</button><br><br>
+      <h4>Change foreground colour (HEX)</h4>
+      <button class="onhover" title="Change your foreground colour." onclick="hexFG()" id="FGchange">Change</button><br><br>
 
-      <h4>Add button colour (HEX)</h4>
-      <button class="onhover" title="Change your button colour." onclick="hexB()" id="Bchange">Change button</button><br><br>
+      <h4>Change button colour (HEX)</h4>
+      <button class="onhover" title="Change your button colour." onclick="hexB()" id="Bchange">Change</button><br><br>
         
-      <h4>Reset background & foreground colour</h4>
-      <button class="onhover" title="Reset to default colours - there is no going back." onclick="backgroundremove()" id="BGremove">Reset background & foreground</button>
+      <h4>Reset page theme (!)</h4>
+      <button class="onhover" title="Reset to default colours - no confirmation!" onclick="backgroundremove()" id="BGremove">Reset All</button>
 
       <hr>
 
       <!--And finally, other options.-->
       <h2>Other</h2>
 
-      <h4>Redeem codes</h4>
-      <button class="onhover" title="Redeem a promo code for coins!" onclick="redeem()" id="rac">Redeem a code</button><br><br>
+      <h3>Redeem a code</h3>
+      <button class="onhover" title="Redeem a promo code for coins!" onclick="redeem()" id="rac">Redeem code</button><br><br>
 
       <h3>Credits</h3>
 			Developers - Drags890, KalibreKirby & Bob8552 <br><br>
@@ -462,8 +456,8 @@
 	</script>
 
 	<!--Lastly, make the view!-->
-	<div class="card" style="width:1109px;margin:auto;">
-		<div class="card-body">
+	<div class="card" style="width:1109px;margin:auto;" id="container">
+		<div class="card-body" id="main">
 			<div ng-view></div>
 		</div>
 	</div>
@@ -471,7 +465,7 @@
   <hr>
 
 	<!--Footer-->
-  <footer>Please expect bugs during updates | Nexark Corporation © 2020 | V0.3.1</footer>
+  <footer>You may have to enable cookies for the site to function. | Neo238, 2021 | V0.3.1</footer>
 
 </body>
 

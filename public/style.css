@@ -1,10 +1,8 @@
 /*CSS - All fonts are overrided by bootstrap's default font.*/
 
- h2 {
+h2 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.5em;
-  
-  
 }
 
 h3 {
@@ -48,7 +46,6 @@ footer {
 
 }*/
 
-
 p {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -82,16 +79,6 @@ button:active {
 	top: 1px;
   
 }
-
-/*
-.header {
-  background: orange;
-  color: white;
-  font-size: 30px;
-  padding: 10px 8px 4px;
-  text-align: center;
-  line-height: 1.4;
-}*/
 
 .dropdown {
   position: relative;
@@ -185,4 +172,50 @@ button:active {
 90% {background-color: rgb(233, 110, 233);}
 95% {background-color: rgb(233, 110, 120);}
 100% {background-color: rgb(240, 162, 89);}
+}
+
+/* Keep footer at the bottom */
+/* {
+	margin: 0;
+	padding:0;
+}
+
+html, body {
+	height: 100%
+}
+
+#container {
+	min-height: 100%
+}
+
+#main {
+
+	overflow:auto;
+	padding-bottom:100px;
+
+
+}
+
+footer {
+
+	background-color: #000;
+	position: relative;
+	height: 100px;
+	margin-top:-100px;
+	clear: both;
+}*/
+
+body{ height:100vh; margin:0; }
+
+header{ min-height:50px; }
+footer{ min-height:50px; }
+
+/* Trick */
+body{ 
+  display:flex; 
+  flex-direction:column; 
+}
+
+footer{
+  margin-top:auto; 
 }

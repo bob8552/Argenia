@@ -1,8 +1,8 @@
+// Functions and Methods
 console.log("Functions loaded");
 
-//Back to top button
+// Back to top button
 let backtotopbutton = document.getElementById("backtotop");
-
 window.onscroll = () => {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     backtotopbutton.style.display = "block";
@@ -11,139 +11,11 @@ window.onscroll = () => {
   }
 }
 
-//To top
+// Set the page view to the top
 function toTop() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
-
-//Functions and stuff
-//Change background
-window.addEventListener('load', () => {
-  if (localStorage.getItem("background")) document.body.style.background = localStorage.getItem("background");
-  if (localStorage.getItem("foreground")) {
-    document.getElementById("container").style.background = localStorage.getItem("foreground");
-    document.getElementById("container").style.borderColor = localStorage.getItem("foreground");
-  };
-  if (localStorage.getItem("button")) {    
-    
-    var style = document.createElement('style');
-    style.innerHTML =
-      'button {' +
-        `background-color: ${localStorage.getItem("button")} !important;` +
-      '}';
-    var ref = document.querySelector('script');
-    ref.parentNode.insertBefore(style, ref);
-    
-  }
-});
-
-//Background
-function hexBG() {
-
-  Swal.fire({
-    title: 'Choose a background colour',
-    text: 'Please use a hex colour code.',
-    input: 'text',
-    inputAttributes: {
-      autocapitalize: 'off'
-    },
-    confirmButtonText: 'Submit',
-
-    preConfirm: async (input) => {
-
-      document.body.style.background = input;
-
-      localStorage.setItem("background", input);
-      Swal.fire("Your background colour has been changed! You can reset it at any time.");
-
-    }
-
-  });
-
-}
-
-//Foreground
-function hexFG() {
-
-  Swal.fire({
-    title: 'Choose a foreground colour',
-    text: 'Please use a hex colour code.',
-    input: 'text',
-    inputAttributes: {
-      autocapitalize: 'off'
-    },
-    confirmButtonText: 'Submit',
-
-    preConfirm: async (input) => {
-
-      document.getElementById("container").style.background = input;
-      document.getElementById("container").style.borderColor = input;
-
-      localStorage.setItem("foreground", input);
-      Swal.fire("Your foreground colour has been changed! You can reset it at any time.");
-
-    }
-
-  });
-
-}
-
-//Button
-function hexB() {
-  
-Swal.fire({
-  title: 'Choose a button colour',
-  text: 'Please use a hex colour code.',
-  input: 'text', 
-  inputAttributes: {
-    autocapitalize: 'off'
-    },
-  confirmButtonText: 'Submit',
-  
-  preConfirm: async (input) => {
-    
-    localStorage.setItem("button", input);
-    
-    var style = document.createElement('style');
-    style.innerHTML =
-      'button {' +
-        `background-color: ${localStorage.getItem("button")} !important;` +
-      '}';
-    var ref = document.querySelector('script');
-    ref.parentNode.insertBefore(style, ref);
-    
-    Swal.fire("Your button colour has been successfully changed!");
-              
-  }
-}); 
-  
-}  
-              
-  
-  
-          
-function backgroundremove() {
-  
-  //Alert user
-  Swal.fire("Your background & foreground colour has been reset.").then(() => {
-    
-    //Default background
-    document.body.style.background = '#adadad';
-    //Default foreground
-    document.getElementById("container").style.background = 'white';
-    document.getElementById("container").style.borderColor = 'white';
-    //Remove variables
-    if (localStorage.getItem("background")) localStorage.removeItem("background");
-    if (localStorage.getItem("foreground")) localStorage.removeItem("foreground");
-    if (localStorage.getItem("button")) localStorage.removeItem("button");
-    //Reload for buttons
-    location.reload();
-    
-  });
-  
-}
-
 
 //Clear points
 function clearM() {
@@ -170,7 +42,7 @@ function clearM() {
 
 }
 
-//Clear EXP
+// Clear EXP level
 function clearE() {
 
   Swal.fire({
@@ -196,6 +68,7 @@ function clearE() {
 
 }
 
+// Remove the player's item collection
 function removeCollection() {
 
   Swal.fire({
