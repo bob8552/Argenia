@@ -1,5 +1,5 @@
 // Games & Activities
-console.log("Games loaded");
+console.log("Games module loaded");
 //localStorage.removeItem('Apple');
 
 //Random events

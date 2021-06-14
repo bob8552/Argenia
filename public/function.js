@@ -1,5 +1,5 @@
 // Functions and Methods
-console.log("Functions loaded");
+console.log("General functions loaded");
 
 // Back to top button
 let backtotopbutton = document.getElementById("backtotop");
@@ -279,4 +279,3 @@ function countDigits(n) {
 
   return count;
 }
-//End!

@@ -23,6 +23,9 @@ h1 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 2em;
   text-shadow: 2px 2px 2px rgb(179, 177, 177);
+	letter-spacing: 0.5px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 body {
@@ -56,16 +59,30 @@ ul {
 }
 
 button {
-  font-family: Arial, Helvetica, sans-serif;
-  border: black;
-  border-width: 0.25rem;
-  padding: 5px;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  border-radius: 0.25em;
-  background-color: silver;
-  
+    color: inherit;
+    background: none;
+    cursor: pointer;
+    /*padding: 25px 80px;*/
+    margin: 2px 1px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+		/* Animations */
+    -webkit-transition: all 0.01s;
+    -moz-transition: all 0.01s;
+    transition: all 0.01s;
+		font-family: Arial, Helvetica, sans-serif;
+		border: black;
+		border-width: 0.25rem;
+		padding: 5px;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 14px;
+		border-radius: 0.25em;
+		background-color: silver;
+		
 }
 
 button:hover {
@@ -175,40 +192,11 @@ button:active {
 }
 
 /* Keep footer at the bottom */
-/* {
-	margin: 0;
-	padding:0;
-}
-
-html, body {
-	height: 100%
-}
-
-#container {
-	min-height: 100%
-}
-
-#main {
-
-	overflow:auto;
-	padding-bottom:100px;
-
-
-}
-
-footer {
-
-	background-color: #000;
-	position: relative;
-	height: 100px;
-	margin-top:-100px;
-	clear: both;
-}*/
 
 body{ height:100vh; margin:0; }
 
 header{ min-height:50px; }
-footer{ min-height:50px; }
+footer{ min-height:20px; }
 
 /* Trick */
 body{ 

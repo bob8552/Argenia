@@ -1,3 +1,5 @@
+console.log("Job module loaded")
+
 function addJob(name, req) {
 
 	if (accessCookie("qj")) return Swal.fire("Please wait 24 hours before you can apply for a job.");

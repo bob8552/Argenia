@@ -1,17 +1,19 @@
 // Event listeners
 //On Load
 window.addEventListener("load", () => {
-	console.log("Loaded");
+	console.log("Main module loaded");
 });
  
 function keepLevels() {
 
+
+		// Checks for inventory items and adds it onto the collection list.
 		//Items
 		if (localStorage.getItem('Car')) {
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
-			textNode.innerHTML = "Car | Tip: Use it in the taxi game!";
+			textNode.innerHTML = "🚗 <b>Car</b> | Tip: Use it in the taxi game!";
 			textNode.id = "Car";
 			header.appendChild(textNode);
 
@@ -20,7 +22,7 @@ function keepLevels() {
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
-			textNode.innerHTML = "Pan | Tip: Use it in the cooking game!";
+			textNode.innerHTML = "🍳 <b>Pan</b> | Tip: Use it in the cooking game!";
 			textNode.id = "Pan";
 			header.appendChild(textNode);
 
@@ -29,7 +31,7 @@ function keepLevels() {
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
-			textNode.innerHTML = "Garden | Tip: Use it in the plants game!";
+			textNode.innerHTML = "🌿 <b>Garden</b> | Tip: Use it in the plants game!";
 			textNode.id = "Garden";
 			header.appendChild(textNode);
 
@@ -38,7 +40,7 @@ function keepLevels() {
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
-			textNode.innerHTML = "Van | Tip: Use it in the delivery game!";
+			textNode.innerHTML = "🚚 <b>Van</b> | Tip: Use it in the delivery game!";
 			textNode.id = "Van";
 			header.appendChild(textNode);
 
@@ -47,13 +49,13 @@ function keepLevels() {
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
-			textNode.innerHTML = "Frisbee | A cool toy, try playing with it!";
+			textNode.innerHTML = "🥏 <b>Frisbee</b> | A toy, try playing with it";
 			textNode.id = "Frisbee";
 			header.appendChild(textNode);
 
 		}
 
-		if (
+		if ( // Checks if the user has no items at all.
 
 			!localStorage.getItem('Car')
 			&& !localStorage.getItem('Pan')
@@ -62,6 +64,8 @@ function keepLevels() {
 			&& !localStorage.getItem('Frisbee')
 
 		) {
+
+			// If the user has no items, append a note saying there is no items.
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
@@ -73,7 +77,7 @@ function keepLevels() {
 
 }
 
-function preventMultiBuy() {
+function preventMultiBuy() { // Prevents users from buying more than 1 item, by disabling the buy buttons.
 
 	//Keep levels
 		document.getElementById("showshop").removeAttribute("hidden");
