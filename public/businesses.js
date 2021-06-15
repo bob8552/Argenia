@@ -31,7 +31,7 @@ function businessname() {
 
   } else {
 
-    document.getElementById("infobus").innerHTML = "";
+    //document.getElementById("infobus").innerHTML = "";
 
   }
 
@@ -99,6 +99,7 @@ function upgradeBusiness() {
 
 }
 
+// Pay business employees
 function payEmployee() {
   if (!localStorage.getItem("business")) return Swal.fire("You don't own a business.");
   if (accessCookie("hasEmployeePay") != "") return Swal.fire("You have already paid your employees.");
@@ -115,6 +116,7 @@ function payEmployee() {
 
 }
 
+// Claim money from the user's company
 function claimpoints() {
 
   if (!localStorage.getItem("business")) return Swal.fire("You don't own a business.");
@@ -131,6 +133,7 @@ function claimpoints() {
 
 }
 
+// (Re)Name the business
 function namebus() {
 
   if (!localStorage.getItem("business")) return Swal.fire("You don't own a business.");

@@ -13,6 +13,7 @@ app.use((req, res, next) => {
 });  
 
 var isUp = process.env.STATUS;
+var isOnline=""
 
 //Use public
 app.use(express.static("public"));
@@ -28,7 +29,22 @@ app.get("/", (req, res) => {
 
 //Promo code (GET request)
 app.get("/promo", (req, res) => {
-  res.send("NUTTLES");
+  res.send("POOPIES");
+});
+
+//Give the client user list of last active users
+app.get("/onlinelist", (req, res) => {
+  res.send(isOnline);
+});
+
+
+app.get("/onlinelistadd", (req, res) => {
+	console.log(req.query.message)
+	if (!(isOnline.length >= 3000)) {
+		isOnline = `${req.query.message}<br>${isOnline}`
+	} else {
+		isOnline = `${req.query.message}`
+	}
 });
 
 //App listen

@@ -122,24 +122,37 @@ var points = 1;
 var exp = 1;
 //Username...
 var username = "Unnamed User";
+//Last online users data for page
+var onlineusers = ""
+// User's about section
+var userabout = ""
 
-//Keep stuff
+// Take the user's points from the localStorage and implement it as a local variable
 if (localStorage.getItem('points')) {
 	points = parseInt(localStorage.getItem('points'), 10);
 } else {
 	localStorage.setItem('points', points);
 };
 
+// Do the same thing above with EXP
 if (localStorage.getItem('exp')) {
 	exp = parseInt(localStorage.getItem('exp'), 10);
 } else {
 	localStorage.setItem('exp', exp);
 };
 
+// Get user's name
 if (localStorage.getItem('username')) {
 	username = localStorage.getItem('username');
 } else {
 	localStorage.setItem('username', username);
+};
+
+// Get user's about section
+if (localStorage.getItem('userabout')) {
+	userabout = localStorage.getItem('userabout');
+} else {
+	localStorage.setItem('userabout', userabout);
 };
 
 //Add, remove points function.
@@ -164,4 +177,3 @@ function clearpoints() {
 	localStorage.setItem('points', points);
 
 }
-//End

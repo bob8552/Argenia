@@ -208,10 +208,10 @@ function redeem() {
 
               if (localStorage.getItem("hasRedeemed")) return Swal.fire("You have already redeemed a code.");
 
-              addpoints(100);
+              addpoints(500);
               localStorage.setItem('hasRedeemed', true)
 
-              Swal.fire("You have redeemed 100 argens!");
+              Swal.fire("You have redeemed 500 points!");
 
             }
             else if (input === "ZUCC") {
@@ -221,7 +221,7 @@ function redeem() {
             }
             else if (input === "DEVONMOBILE") {
               
-              Swal.fire("Sure, here ya go with your 2000 bucks -_-");
+              Swal.fire("Sure, here you go with your 2000 points -_-");
               
               addpoints(2000);
               
@@ -246,7 +246,7 @@ function redeem() {
 function setName() {
 
   Swal.fire({
-    title: 'Set your username',
+    title: 'Set your username (less than 30 characters)',
     input: 'text',
     inputAttributes: {
       autocapitalize: 'off'
@@ -256,10 +256,44 @@ function setName() {
     preConfirm: async (input) => {
       if (!input) return Swal.fire("Please input a name.");
 
-			username = input;
-      localStorage.setItem("username", username);
-      Swal.fire("You now have a username!");
-      document.getElementById("yourname").innerHTML = localStorage.getItem("username");
+			if (!(input.length >= 30)) {
+				username = input;
+				localStorage.setItem("username", username);
+				Swal.fire("You now have a username!");
+				document.getElementById("yourname").innerHTML = localStorage.getItem("username");
+			} else {
+				Swal.fire("Please input something less than 30 characters")
+			}
+
+    }
+
+  });
+
+}
+
+function setAbout() {
+
+  Swal.fire({
+    title: 'Set your about text (less than 100 characters)',
+    input: 'text',
+    inputAttributes: {
+      autocapitalize: 'off'
+    },
+    confirmButtonText: 'Submit',
+
+    preConfirm: async (input) => {
+      if (!input) return Swal.fire("Please input something");
+
+			if (!(input.length >= 100)) {
+				userabout = input;
+				localStorage.setItem("userabout", userabout);
+				Swal.fire("You now have an about text!");
+				document.getElementById("userabout").innerHTML = localStorage.getItem("userabout");
+			} else {
+
+				Swal.fire("Please input something less than 100 characters")
+
+			}
 
     }
 
@@ -279,3 +313,38 @@ function countDigits(n) {
 
   return count;
 }
+
+function appendToOnlineMembers() {
+
+	// Get date and time for user recents list
+	let currentDate = new Date();
+	let time = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+
+	let user = `<div class="card" style="width:25rem;"><div class="card-body"><h6>${username || "Unknown user"}</h6><h6>Points: ${points}</h6><h6>About: ${userabout || "User has no about"}</h6><small>${time}</small></div></div><br>`
+
+	function sendRequest() {
+		$.get("https://argenia.bob8552.repl.co/onlinelistadd", {message:user}, function(data){
+			console.log(data);
+		});
+	}
+	sendRequest()
+
+}
+
+function getMembers() {
+ 
+	function sendRequest() {
+		$.get("https://argenia.bob8552.repl.co/onlinelist", function(data){
+			var onlineusers = data
+			document.getElementById("onlineusers").innerHTML = onlineusers
+		});
+	}
+	sendRequest()
+
+}
+
+function updateuserlist() {
+	getMembers()
+}
+
+appendToOnlineMembers(); // Upload to the server that a user has come online

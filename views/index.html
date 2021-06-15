@@ -16,8 +16,8 @@
 	<!--Embed META-->
 	<meta property="og:site_name" content="Argenia">
 	<meta property="og:url" content="https://argenia.bob8552.repl.co/">
-	<meta property="og:title" content="Argenia | A web game">
-	<meta property="og:description" content="Argenia is a game about earning money and buying virtual items.">
+	<meta property="og:title" content="Argenia">
+	<meta property="og:description" content="Argenia is a web game about earning money and buying virtual items.">
 	<meta property="og:type" content="website">
 	<meta name="og:image" itemprop="image" content="/images/MMG.png">
 
@@ -40,6 +40,7 @@
 	</script>
 
 	<!--JS Scripts-->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="/index.js" defer></script>
 	<script src="/games.js" defer></script>
 	<script src="/function.js" defer></script>
@@ -53,7 +54,7 @@
 
 		//controllers
 		app.controller("HomeController", function($scope) {
-			$scope.Name = "Welcome to Money Maker Game!";
+			$scope.Name = "Welcome to Argenia";
 			$scope.username = username;
 		});
 		app.controller("StuffController", function($scope) {
@@ -63,11 +64,15 @@
 		});
 		app.controller("ShopController", function($scope) {});
 		app.controller("GamesController", function($scope) {});
+		app.controller("UsersController", function($scope) {
+			$scope.onlineusers = onlineusers
+		});
 		app.controller("JobsController", function($scope) {
 			$scope.Job = localStorage.getItem("Job") || "You dont have a job.";
 		});
 		app.controller("OptionsController", function($scope) {
 			$scope.username = username;
+			$scope.userabout = userabout;
 		});
 		app.controller("InfoController", function($scope) {});
 
@@ -94,6 +99,11 @@
 			.when('/jobs', {
 				templateUrl : 'pages/jobs.html',
 				controller  : 'JobsController'
+			})
+
+			.when('/users', {
+				templateUrl : 'pages/users.html',
+				controller  : 'UsersController'
 			})
 
 			.when('/games', {
@@ -145,6 +155,9 @@
           <a class="nav-link" href="#/games">Games & Activities 🎮</a>
 				</li>
         <li class="nav-item">
+          <a class="nav-link" href="#/users">Users 👤</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#/options">Options & Customisation ⚙️</a>
         </li>
         <li class="nav-item">
@@ -155,14 +168,16 @@
 
     <!--Event Notifications-->
     <div class="dropdown nav">
-      Event Notifications
+      Event Notifications 🔔
       <div class="dropdown-content">
         <p onclick="Swal.fire('The site was refurbished and renamed.')">Site refurbished!</p>
+      </div>
+			<div class="dropdown-content">
+        <p onclick="Swal.fire('New update contains recent users list and user about section. If you find any bugs please contact us on discord on the information page. Thanks for playing!')">Update v0.0.5 released</p>
       </div>
     </div>
 
   </nav>
-
 
 	<hr>
 
@@ -170,7 +185,7 @@
   <br>
   <div class="container">
     <div class="alert alert-warning bg-orange" role="alert">
-      <center>The site is being recoded!</center>
+      <center>New "Users" feature is currently experimental and may have bugs</center>
     </div>
   </div>
 
@@ -182,7 +197,7 @@
 
 		<center><h1 style="text-decoration:underline;font-style:italic;">Welcome back, {{username}}!</h1></center>
 		<center><h6>New? Check out the options above!</h6></center><hr>
-		<p style="font-style:italic;">"Unnamed User"? Give yourself a username over <a href="#/options">here</a>!</p>
+		<p style="font-style:italic;">"Unnamed User"? Give yourself a username over <a href="#/options">here</a></p>
 	
 	</script>
 	
@@ -190,16 +205,16 @@
 	<script type="text/ng-template" id="pages/your-stuff.html">
 				
 		<center><h1 style="text-decoration:underline;">Your stuff</h1></center>
-		<center><h6>All your current stats.</h6></center><hr>
+		<center><h6>Your current stats</h6></center><hr>
 
 			<!--Argens & EXP-->
-			<h2>Currency - Argens</h2>
+			<h2>Points</h2>
 			<p id="points">{{ points || 0 }}</p>
 			<button onclick="clearM()">Reset argens</button><br>
 
 			<hr>
 
-			<h2>EXP Level</h2>
+			<h2>EXP</h2>
 			<p id="exp">{{ exp || 0 }}</p>
 			<button onclick="clearE()">Reset EXP</button>
 
@@ -223,11 +238,11 @@
 	<!--Shop-->
 	<script type="text/ng-template" id="pages/shop.html">
 
-		<center><h1 style="text-decoration:underline;">Shop & Businesses</h1></center>
+		<center><h1 style="text-decoration:underline;">Shop & Businesses 🛒</h1></center>
 		<center><h6>Check out the shop and start a business!</h6></center><hr>
 
 			<!--Shop-->
-      <h2>Shop</h2>
+      <h2>Shop 🛒</h2>
 			<h6>Buy items that can enhance your gameplay!</h6>
 			<button onclick="preventMultiBuy()">Show Shop Section</button><br>
 
@@ -238,7 +253,7 @@
 						<div class="card-body">
 							<image src="images/Frisbee.png" style="float:right;width:150px;"></image>
 							<h6>Name: Frisbee</h6>
-							<h6>Price: 15 Argens</h6>
+							<h6>Price: 15 Points</h6>
 							<h6>Description: A neat toy!</h6>
 							<button class="onhover" title="Buy a frisbee!" onclick="buy('Frisbee', 15, 'frisbeeBuy', 'frisbee')" id="frisbeeBuy">Buy!</button>
 						</div>
@@ -248,8 +263,8 @@
 						<div class="card-body">
 							<image src="images/Pan.png" style="float:right;width:150px;"></image>
 							<h6>Name: Pan</h6>
-							<h6>Price: 15 Argens</h6>
-							<h6>Description: Cook food with the state-of-the-art pan!</h6>
+							<h6>Price: 15 Points</h6>
+							<h6>Description: Cook food with a state-of-the-art pan!</h6>
 							<button class="onhover" title="Buy a pan to cook food!" onclick="buy('Pan', 15, 'panBuy', 'pan')" id="panBuy">Buy!</button><br><br>
 						</div>
 					</div><br>
@@ -258,8 +273,8 @@
 						<div class="card-body">
 							<image src="images/Car.png" style="float:right;width:150px;"></image>
 							<h6>Name: Car</h6>
-							<h6>Price: 2000 Argens</h6>
-							<h6>Description: Use a car for the taxi job!</h6>
+							<h6>Price: 2000 Points</h6>
+							<h6>Description: Buy a car for the taxi job!</h6>
 							<button class="onhover" title="Buy a car to do the taxi job!" onclick="buy('Car', 2000, 'carBuy', 'car')" id="carBuy">Buy!</button>
 						</div>
 					</div><br>
@@ -268,7 +283,7 @@
 						<div class="card-body">
 							<image src="images/Van.png" style="float:right;width:150px;"></image>
 							<h6>Name: Van</h6>
-							<h6>Price: 5000 Argens</h6>
+							<h6>Price: 5000 Points</h6>
 							<h6>Description: Use a van for the delivery job!</h6>
 							<button class="onhover" title="Buy a van to deliver parcels!" onclick="buy('Van', 5000, 'vanBuy', 'van')" id="vanBuy">Buy!</button>
 						</div>
@@ -278,7 +293,7 @@
 						<div class="card-body">
 							<image src="images/Garden.png" style="float:right;width:150px;"></image>
 							<h6>Name: Garden</h6>
-							<h6>Price: 500 Argens</h6>
+							<h6>Price: 500 Points</h6>
 							<h6>Description: Get a garden so you can grow plants!</h6>
 							<button class="onhover" title="Buy a garden to grow plants!" onclick="buy('Garden', 500, 'gardenBuy', 'garden')" id="gardenBuy">Buy!</button>
 						</div>
@@ -288,33 +303,34 @@
 			<hr>
 
 			<!--Businesses-->
-      <h2 id="businesses">Businesses</h2>
+      <h2 id="businesses">Businesses 💰</h2>
 			<h6>Use a business to earn extra money!</h6>
 			<button onclick="businessname()">Show Business Section</button><br>
 
 			<div id="showbus" hidden="hidden">
-				<br><h3 id="infobus">Business info</h3>
-				<h4 id="busnamespace">---</h4>
-				<h4 id="busdescspace">---</h4>
+				<br><h3 id="infobus">ℹ️ Business info</h3>
+				<h4 id="busnamespace">Business name - No business.</h4>
+				<h4 id="busdescspace">Business description - No business.</h4>
+				<br>
 
 				<h3>Options</h3>
-				<h4>Start business - 100 Argens</h4>
+				<h4>💰 Start business - 100 Points</h4>
 				<button class="onhover" title="Start your business so you can claim money every day!" onclick="buyBusiness(100, 'business', 'smallbus')" id="smallbus">Start a business</button><br><br>
 
-				<h4>Claim points</h4>
+				<h4>💵 Claim points</h4>
 				<button class="onhover" title="Claim money from your business!" onclick="claimpoints()" id="busclaim">Claim points</button><br><br>
 
-				<h4>Pay employees</h4>
+				<h4>👨‍💼 Pay employees</h4>
 				<button class="onhover" title="Pay your employees so you can claim money." onclick="payEmployee()" id="buspayemployees">Pay your employees</button><br><br>
 
-				<h4>Upgrade business - 50 Argens</h4>
+				<h4>⏫ Upgrade business - 50 Argens</h4>
 				<button class="onhover" title="Upgrade your business to increase it's money output." onclick="upgradeBusiness()" id="upbus">Upgrade your business</button><br><br>
 
-				<h4>Business details</h4>
+				<h4>🖊️ Business details</h4>
 				<button onclick="namebus()" id="namebus">Name</button>
 				<button onclick="descbus()" id="descbus">Description</button><br><br>
 
-				<h4>Delete business</h4>
+				<h4>🗑️ Delete business</h4>
 				<button class="onhover" title="Delete your business - there is no going back!" onclick="delbus()" id="delbus">Delete business</button>
 			</div>
 
@@ -323,67 +339,89 @@
 		<!--Games & Activities-->
 	<script type="text/ng-template" id="pages/games.html">
 
-		<center><h1 style="text-decoration:underline;">Games and Activities</h1></center>
-		<center><h6>Play games to earn Argens!</h6></center><hr>
+		<center><h1 style="text-decoration:underline;">Games and Activities 🎮</h1></center>
+		<center><h6>Play games to earn points!</h6></center><hr>
 
 			<!--Games-->
-      <h2 id="games">Games</h2>
+      <h2 id="games">Games 🎮</h2>
 
-      <h3>Fruit or vegetable? - no coins required - +5 coins</h3>
+      <h3>🍎 Fruit or vegetable? - no coins required - +5 coins</h3>
       <button onclick="foodGame()" id="fov">Play Game</button><br><br>
 
-      <h3>Reptile or mammal? - no coins required - +5 coins</h3>
+      <h3>🐊 Reptile or mammal? - no coins required - +5 coins</h3>
       <button onclick="animalGame()" id="rom">Play Game</button><br><br>
 
-      <h3>Unreverse words - no coins required - +10 coins</h3>
+      <h3>🔤 Unreverse words - no coins required - +10 coins</h3>
       <button onclick="unreverse()" id="urw">Play Game</button><br><br>
 
-      <h3>Unreverse words (Hard) - no coins required - +15 coins</h3>
+      <h3>🔤 Unreverse words (Hard) - no coins required - +15 coins</h3>
       <button onclick="unreverseHARD()" id="urwH">Play Game</button><br><br>
 
-      <h3>Answer riddles - no coins required - +15 coins</h3>
+      <h3>❓ Answer riddles - no coins required - +15 coins</h3>
       <button onclick="riddleGame()" id="riddles">Play Game</button>
 
       <hr>
 
       <!--Activities-->
-      <h2>Activities</h2>
+      <h2>Activities 🕹️</h2>
 
-      <h3>Offer taxi rides - Car required.</h3>
+      <h3>🚕 Offer taxi rides - Car required.</h3>
       <button onclick="taxi()" id="taxirides">Do Activity</button><br><br>
 
-      <h3>Make food for people - Pan required.</h3>
+      <h3>🍲 Make food for people - Pan required.</h3>
       <button onclick="cook()" id="makefood">Do Activity</button><br><br>
 
-      <h3>Grow plants - Garden required.</h3>
+      <h3>🪴 Grow plants - Garden required.</h3>
       <button onclick="growplants()" id="garden">Do Activity</button><br><br>
 
-      <h3>Harvest apples - Garden required.</h3>
+      <h3>🍏 Harvest apples - Garden required.</h3>
       <button onclick="harvestapples()" id="apples">Do Activity</button><br><br>
 
-      <h3>Deliver packages - Van required.</h3>
+      <h3>📦 Deliver packages - Van required.</h3>
       <button onclick="delivery()" id="deliverpackages">Do Activity</button><br><br>
 
-			<h3>Throw your frisbee and see what happens</h3>
+			<h3>🥏 Throw your frisbee and see what happens</h3>
       <button onclick="frisb()" id="frisbeeg">Do Activity</button>
 
 	
 	</script>
 
+	<!--Users-->
+	<script type="text/ng-template" id="pages/users.html">
+
+		<center><h1 style="text-decoration:underline;">Users 👤</h1></center>
+		<center><h6>People who have visited the site recently</h6></center><hr>
+
+			<!--Games-->
+      <h2 id="users">Recent visits 👤</h2>
+
+			<button onclick="updateuserlist()">Update list</button><br><br>
+
+			<div id="onlineusers">{{ onlineusers || "Press refresh to see users" }}</div>
+
+	</script>
+
+
 	<!--Options & Customisation-->
 	<script type="text/ng-template" id="pages/options.html">
 
-		<center><h1 style="text-decoration:underline;">Options</h1></center>
+		<center><h1 style="text-decoration:underline;">Options ⚙️</h1></center>
 		<center><h6>Customise the site</h6></center><hr>
 
-			<h2>Set/Change username</h2>
+			<h2>Username & About 📛</h2>
+
+			<h3>Username</h3>
       <p id="yourname">{{ username }}</p>
-      <button class="onhover" title="This name will be used in the chat." onclick="setName()">Change username</button><br>
+      <button class="onhover" title="This name will be used in the chat." onclick="setName()">Change username</button><br><br>
+
+			<h3>About</h3>
+      <p id="userabout">{{ userabout || "You currently don't have an about text." }}</p>
+      <button class="onhover" title="A short description about you." onclick="setAbout()">Change about</button><br>
 
 			<hr>
 
 			<!--Customisation-->
-      <h2 id="customisation">Customisation</h2>
+      <h2 id="customisation">Customisation 🖌️</h2>
 
       <h4>Change background colour (HEX)</h4>
       <button class="onhover" title="Change your background colour." onclick="hexBG()" id="BGchange">Change</button><br><br>
@@ -416,14 +454,14 @@
 	<!--Jobs-->
 	<script type="text/ng-template" id="pages/jobs.html">
 
-		<center><h1 style="text-decoration:underline;">Jobs</h1></center>
+		<center><h1 style="text-decoration:underline;">Jobs 👔</h1></center>
 		<center><h6>Do a job for daily EXP and points!</h6></center><hr>
 
 		<h3>Jobs</h3>
 		<div class="card" style="width:25rem;">
 			<div class="card-body">
 				<h6>Job: Chef</h6>
-				<h6>Salary: 25 Argen/day</h6>
+				<h6>Salary: 25 Points/day</h6>
 				<h6>Requirment: 35 EXP</h6>
 				<button class="onhover" title="Work as chef." onclick="addJob('Chef', 35)">Apply!</button>
 			</div>
@@ -432,11 +470,15 @@
 		<div class="card" style="width:25rem;">
 			<div class="card-body">
 				<h6>Job: Waiter</h6>
-				<h6>Salary: 30 Argen/day</h6>
+				<h6>Salary: 30 Points/day</h6>
 				<h6>Requirment: 30 EXP</h6>
 				<button class="onhover" title="Work as waiter." onclick="addJob('Waiter', 30)">Apply!</button>
 			</div>
-		</div><br>
+		</div>
+		
+		<font size="2.5">More jobs coming soon!</font>
+
+		<br><br>
 
 		<h3>Your job</h3>
 		<p style="font-style:italic;" id="jb">{{ Job }}</p>
@@ -448,14 +490,15 @@
 	<!--Information-->
 	<script type="text/ng-template" id="pages/info.html">
 
-		<center><h1 style="text-decoration:underline;">Information</h1></center>
+		<center><h1 style="text-decoration:underline;">Information ℹ️</h1></center>
 		<center><h6>Information and News on Argenia</h6></center><hr>
 
 		<p>Argenia is a web game based on earning money and buying items. It is run by Nexark, a development group founded recently in August 2020.</p>
 
 		<br>
 
-		<center><h2>Discord opening soon!</h2></center>
+		<h2>Our Discord</h2>
+		<iframe src="https://discord.com/widget?id=854028107450155058&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 	
 	</script>
 
@@ -469,7 +512,7 @@
   <hr>
 
 	<!--Footer-->
-  <footer>You may have to enable cookies for the site to function. | Neo238, 2021 | V0.3.1</footer>
+  <footer>You may have to enable cookies for the site to function. | Neo238, 2021 | V0.5.0</footer>
 
 </body>
 

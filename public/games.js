@@ -263,7 +263,7 @@ function riddleGame() {
 
       } else {
 
-        Swal.fire("You got it wrong, try again!");
+        Swal.fire(`You got it wrong, try again!\n Answer: ${solution}`);
 
       }
 
