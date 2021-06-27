@@ -37,7 +37,7 @@ function fireEvent() {
 
     } else if (random === 2 && !accessCookie("hasEmployeePay") && localStorage.getItem("business")) { //Pay employees
 
-      Swal.fire("[YOUR BUSINESS]- You have not payed your employees, so 50 argens have been fined from you to pay your employees. Remember to pay your employees every day!")
+      Swal.fire("[YOUR BUSINESS]- You have not payed your employees, so 50 points have been fined from you to pay your employees. Remember to pay your employees every day!")
       if (parseInt(points, 10) > 50) removepoints(50);
       createCookie("hasEmployeePay", true);
 
@@ -81,6 +81,82 @@ function fireEvent() {
 
 }
 
+function guessword() {
+	var transport=["automobile", "trains", "transport", "vehicle", "plane"] // Transport catergory
+	var biology = ["vacuole", "genetics", "nucleus", "reproduction", "mitochondria"]
+	var physics = ["gravity", "force", "pressure", "magnetism", "motion"]
+	var astronomy = ["planets", "stars", "astronaut", "comet", "asteroids"]
+	var geography = ["latitude", "longitude", "equator", "landscape", "climate"]
+	var history = ["romans", "normans", "crusades", "henry", "alexander"]
+
+	var gameclue; // Pick one clue from the array below
+	var clue = ["transport", "biology", "physics", "astronomy", "geography", "history"] // Clues for each catergory
+	var word; // Word chosen from any catergory at random
+
+	var randomCatergory = Math.floor((Math.random() * 6) + 1);
+
+	if (randomCatergory == 1) {
+
+		gameclue = clue[0]
+		word = transport[Math.floor(Math.random() * transport.length)];
+
+	} else if (randomCatergory == 2) {
+
+		gameclue = clue[1]
+		word = biology[Math.floor(Math.random() * biology.length)];
+
+	} else if (randomCatergory == 3) {
+
+		gameclue = clue[2]
+		word = physics[Math.floor(Math.random() * physics.length)];
+
+	} else if (randomCatergory == 4) {
+
+		gameclue = clue[3]
+		word = astronomy[Math.floor(Math.random() * astronomy.length)];
+
+	} else if (randomCatergory == 5) {
+
+		gameclue = clue[4]
+		word = geography[Math.floor(Math.random() * geography.length)];
+
+	} else if (randomCatergory == 6) {
+
+		gameclue = clue[5]
+		word = history[Math.floor(Math.random() * history.length)];
+
+	};
+
+  Swal.fire({
+    title: `Guess the word`,
+    html: `<b>Clue -</b> ${gameclue}<br>
+		<b>Word length -</b> ${word.length}</b><br>
+		<b>First 3 letters -</b> ${word.charAt(0) + word.charAt(1) + word.charAt(2) + word.charAt(3)}`,
+    input: 'text',
+    inputAttributes: {
+      autocapitalize: 'off'
+    },
+    confirmButtonText: 'Check answer',
+
+    preConfirm: async (input) => {
+		
+				if (input.toLowerCase().includes(word)) {
+
+					addpoints(25);
+					Swal.fire("Correct! You get 25 points");
+
+				} else {
+
+					Swal.fire(`You got it wrong, try again!`);
+
+				}
+
+    }
+
+  });
+
+
+}
 
 
 window.addEventListener('load', () => {
@@ -378,11 +454,11 @@ function cook() {
   }
 
   document.getElementById("makefood").setAttribute("disabled", "disabled");
-  document.getElementById("makefood").innerHTML = "Please wait 15 seconds.";
+  document.getElementById("makefood").innerHTML = "Cooldown 15s";
 
   setTimeout(() => {
     document.getElementById("makefood").removeAttribute("disabled");
-    document.getElementById("makefood").innerHTML = "Get points by making food!";
+    document.getElementById("makefood").innerHTML = "Do activity";
   }, 15000);
 }
 
@@ -416,11 +492,11 @@ function frisb() {
   }
 
   document.getElementById("frisbeeg").setAttribute("disabled", "disabled");
-  document.getElementById("frisbeeg").innerHTML = "Please wait 15 seconds.";
+  document.getElementById("frisbeeg").innerHTML = "Cooldown 15s";
 
   setTimeout(() => {
     document.getElementById("frisbeeg").removeAttribute("disabled");
-    document.getElementById("frisbeeg").innerHTML = "Play with your frisbee!";
+    document.getElementById("frisbeeg").innerHTML = "Do activity";
   }, 15000);
 }
 
@@ -475,11 +551,11 @@ function taxi() {
   }
 
   document.getElementById("taxirides").setAttribute("disabled", "disabled");
-  document.getElementById("taxirides").innerHTML = "Please wait 15 seconds.";
+  document.getElementById("taxirides").innerHTML = "Cooldown 15s";
 
   setTimeout(() => {
     document.getElementById("taxirides").removeAttribute("disabled");
-    document.getElementById("taxirides").innerHTML = "Get points by driving a taxi!";
+    document.getElementById("taxirides").innerHTML = "Do activity";
   }, 15000);
 
 }
@@ -612,11 +688,11 @@ function growplants() {
   }
 
   document.getElementById("garden").setAttribute("disabled", "disabled");
-  document.getElementById("garden").innerHTML = "Please wait 15 seconds.";
+  document.getElementById("garden").innerHTML = "Cooldown 15s";
 
   setTimeout(() => {
     document.getElementById("garden").removeAttribute("disabled");
-    document.getElementById("garden").innerHTML = "Get argens by growing plants!";
+    document.getElementById("garden").innerHTML = "Do activity";
   }, 15000);
 
 }
@@ -671,11 +747,11 @@ function harvestapples() {
   }
 
   document.getElementById("apples").setAttribute("disabled", "disabled");
-  document.getElementById("apples").innerHTML = "Please wait 15 seconds.";
+  document.getElementById("apples").innerHTML = "Cooldown 15s";
 
   setTimeout(() => {
     document.getElementById("apples").removeAttribute("disabled");
-    document.getElementById("apples").innerHTML = "Get points by harvesting apples!";
+    document.getElementById("apples").innerHTML = "Do activity";
   }, 15000);
 
 }
@@ -722,7 +798,7 @@ function delivery() {
 
     }
 
-    Swal.fire(`You got pulled over by the police for wreckless driving and you were fined ${randomFine} argens.`);
+    Swal.fire(`You got pulled over by the police for wreckless driving and you were fined ${randomFine} points.`);
 
   }
   else { //success
@@ -733,11 +809,11 @@ function delivery() {
   }
 
   document.getElementById("deliverpackages").setAttribute("disabled", "disabled");
-  document.getElementById("deliverpackages").innerHTML = "Please wait 15 seconds.";
+  document.getElementById("deliverpackages").innerHTML = "Cooldown 15s";
 
   setTimeout(() => {
     document.getElementById("deliverpackages").removeAttribute("disabled");
-    document.getElementById("deliverpackages").innerHTML = "Get argens by delivering packages!";
+    document.getElementById("deliverpackages").innerHTML = "Get points by delivering packages!";
   }, 15000);
 
 }

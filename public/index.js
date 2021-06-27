@@ -45,11 +45,21 @@ function keepLevels() {
 			header.appendChild(textNode);
 
 		}
+		//💲
 		if (localStorage.getItem('Frisbee')) {
 
 			var header = document.getElementById('collectionlist');
 			var textNode = document.createElement("p");
 			textNode.innerHTML = "🥏 <b>Frisbee</b> | A toy, try playing with it";
+			textNode.id = "Frisbee";
+			header.appendChild(textNode);
+
+		}
+		if (localStorage.getItem('Coupon')) {
+
+			var header = document.getElementById('collectionlist');
+			var textNode = document.createElement("p");
+			textNode.innerHTML = "💲 <b>Coupon</b> | Save money on purchases";
 			textNode.id = "Frisbee";
 			header.appendChild(textNode);
 
@@ -62,6 +72,7 @@ function keepLevels() {
 			&& !localStorage.getItem('Garden')
 			&& !localStorage.getItem('Van')
 			&& !localStorage.getItem('Frisbee')
+			&& !localStorage.getItem('Coupon')
 
 		) {
 
@@ -111,6 +122,12 @@ function preventMultiBuy() { // Prevents users from buying more than 1 item, by 
 
       document.getElementById('frisbeeBuy').innerHTML = "You bought this item.";
       document.getElementById('frisbeeBuy').setAttribute('disabled', 'disabled');
+
+		}
+		if (localStorage.getItem('Coupon')) {
+
+      document.getElementById('couponBuy').innerHTML = "You bought this item.";
+      document.getElementById('couponBuy').setAttribute('disabled', 'disabled');
 
 		}
 

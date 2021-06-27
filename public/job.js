@@ -4,7 +4,7 @@ function addJob(name, req) {
 
 	if (accessCookie("qj")) return Swal.fire("Please wait 24 hours before you can apply for a job.");
 	if (localStorage.getItem("Job")) return Swal.fire("You already have a job.");
-	if (exp < req) return Swal.fire("You do not have enough EXP to apply.");
+	if (exp < req) return Swal.fire("You do not have enough EXP to apply - Try doing some activities to gain EXP.");
 	document.getElementById("jb").innerHTML = name;
 
 	localStorage.setItem("Job", name);
@@ -53,11 +53,11 @@ if (accessCookie("jd")) return Swal.fire("Please wait 24 hours before you can wo
 
 				if (input.toLowerCase() === solution) {
 
-					addpoints(25);
+					addpoints(50);
 					exp = exp + 10;
 					localStorage.setItem("exp", exp);
 
-					Swal.fire("Well done, you have been paid 25 Argens. +10 EXP");
+					Swal.fire("Well done, you have been paid 50 Points. +10 EXP");
 					createCookie("jd", "TRUE");
 
 
@@ -107,6 +107,95 @@ if (accessCookie("jd")) return Swal.fire("Please wait 24 hours before you can wo
 
 					Swal.fire("Terrible effort, you failed. Try again in 24 hours.");
 					createCookie("jd", "TRUE");
+
+				}
+
+			}
+
+		});
+
+	} else if (Job === "Scientist") {
+
+		const questions = [
+		"What is the powerhouse of the cell?",
+		"What is the heaviest organ in the body?",
+		"What is the only planet that spins clockwise?",
+		"What is the fastest growing plant species?",
+	  "What is the only planet spins clockwise?",
+		"What is the event called when the moon appears to block the sun from earth?",
+		"What trees never lose their leaves?",
+		"What is the only rock that floats?"
+		];
+		const answers = [
+		"mitochondria",
+		"liver",
+		"venus",
+		"bamboo",
+		"venus",
+		"solar eclipse",
+		"evergreen",
+		"pumice"
+		];
+
+		var randomNumber = Math.floor(Math.random() * 8);
+		//please update index
+		var question = questions[randomNumber];
+		var answer = answers[randomNumber];
+
+		Swal.fire({
+			title: "Trivia - Work as a Scientist - 2 tries",
+			text: question,
+			input: 'text',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			confirmButtonText: 'Check answer',
+
+			preConfirm: async (input) => {
+
+				if (input.toLowerCase().includes(answer)) {
+
+					addpoints(80);
+					exp = exp + 15;
+					localStorage.setItem("exp", exp);
+
+					Swal.fire("Well done, you have been paid 80 points. +15 EXP");
+					createCookie("jd", "TRUE");
+
+
+				} else {
+
+					Swal.fire({
+						title: "Incorrect Answer - 1 try left",
+						text: question,
+						input: 'text',
+						inputAttributes: {
+							autocapitalize: 'off'
+						},
+						confirmButtonText: 'Check answer',
+
+						preConfirm: async (input) => {
+
+							if (input.toLowerCase().includes(answer)) {
+
+								addpoints(80);
+								exp = exp + 15;
+								localStorage.setItem("exp", exp);
+
+								Swal.fire("Well done, you have been paid 80 points. +15 EXP");
+								createCookie("jd", "TRUE");
+
+
+							} else {
+
+								Swal.fire("Terrible effort, you failed. Try again in 24 hours.");
+								createCookie("jd", "TRUE");
+
+							}
+
+						}
+
+		});
 
 				}
 

@@ -90,6 +90,7 @@ function removeCollection() {
         localStorage.removeItem('Garden');
         localStorage.removeItem('Van');
 				localStorage.removeItem('Frisbee');
+				localStorage.removeItem('Coupon');
 
         if (document.getElementById('noitem')) {
           document.getElementById('noitem').remove();
@@ -113,6 +114,10 @@ function removeCollection() {
 
 				if (document.getElementById('Frisbee')) {
           document.getElementById('Frisbee').remove();
+        }
+
+				if (document.getElementById('Coupon')) {
+          document.getElementById('Coupon').remove();
         }
 
         var header = document.getElementById('collectionlist');
@@ -314,13 +319,50 @@ function countDigits(n) {
   return count;
 }
 
+function deleteAllCookies() { // Delete all cookies
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
+
+// Resets ALL cookies and localstorage
+function resetUser() {
+
+	  Swal.fire({
+    title: 'Reset page',
+    text: "Are you sure you want to reset ALL your stats and user info?",
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, Reset'
+  })
+
+    .then((result) => {
+
+      if (result.value) {
+
+        Swal.fire('Resetting...');
+        localStorage.clear();
+				deleteAllCookies();
+				location.reload();
+
+      }
+    })
+
+}
+
 function appendToOnlineMembers() {
 
 	// Get date and time for user recents list
 	let currentDate = new Date();
 	let time = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
 
-	let user = `<div class="card" style="width:25rem;"><div class="card-body"><h6>${username || "Unknown user"}</h6><h6>Points: ${points}</h6><h6>About: ${userabout || "User has no about"}</h6><small>${time}</small></div></div><br>`
+	let user = `<div class="card" style="width:30rem;"><div class="card-body"><img src="${localStorage.getItem("avatar")}" onError="this.onerror=null;this.src='/images/UnknownUser.png';" height="115" width="115" style="float:left;padding-right: 10px;"><h6><b>${username || "Unknown user"}</b></h6><h6>Points:${points}</h6><h6>About: ${userabout || "User has no about"}</h6><small>${time}</small></div></div><br>`
 
 	function sendRequest() {
 		$.get("https://argenia.bob8552.repl.co/onlinelistadd", {message:user}, function(data){

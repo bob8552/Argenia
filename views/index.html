@@ -32,12 +32,16 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" defer>
 
 	</script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" defer></script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js">
 
 	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js">
 
 	</script>
+
+
 
 	<!--JS Scripts-->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -47,7 +51,8 @@
 	<script src="/job.js" defer></script>
 	<script src="/businesses.js" defer></script>
 	<script src="/options/customisation.js"></script>
-	<script src="/options/user.js"></script>
+	<script src="/options/user.js"defer></script>
+	<script src="/items/trading.js"defer></script>
 
 	<script type="text/javascript">
 		var app = angular.module("myApp", ['ngRoute']);
@@ -63,6 +68,7 @@
 			$scope.keeplevels = keepLevels();
 		});
 		app.controller("ShopController", function($scope) {});
+		app.controller("TradingController", function($scope) {});
 		app.controller("GamesController", function($scope) {});
 		app.controller("UsersController", function($scope) {
 			$scope.onlineusers = onlineusers
@@ -73,6 +79,7 @@
 		app.controller("OptionsController", function($scope) {
 			$scope.username = username;
 			$scope.userabout = userabout;
+			$scope.avatar = localStorage.getItem("avatar") || "/images/UnknownUser.png";
 		});
 		app.controller("InfoController", function($scope) {});
 
@@ -93,6 +100,11 @@
 
 			.when('/shop', {
 				templateUrl : 'pages/shop.html',
+				controller  : 'ShopController'
+			})
+
+			.when('/trading', {
+				templateUrl : 'pages/trading.html',
 				controller  : 'ShopController'
 			})
 
@@ -168,12 +180,9 @@
 
     <!--Event Notifications-->
     <div class="dropdown nav">
-      Event Notifications 🔔
-      <div class="dropdown-content">
-        <p onclick="Swal.fire('The site was refurbished and renamed.')">Site refurbished!</p>
-      </div>
+      Event Notifications 
 			<div class="dropdown-content">
-        <p onclick="Swal.fire('New update contains recent users list and user about section. If you find any bugs please contact us on discord on the information page. Thanks for playing!')">Update v0.0.5 released</p>
+        <p onclick="Swal.fire('v0.6.0 update', 'New update contains avatar feature, coupon item, word guessing game and more. Visit us on discord if you would like to report a bug or see the full changelog. Thanks for playing!')">Update v0.6.0 released</p>
       </div>
     </div>
 
@@ -185,7 +194,7 @@
   <br>
   <div class="container">
     <div class="alert alert-warning bg-orange" role="alert">
-      <center>New "Users" feature is currently experimental and may have bugs</center>
+      <center>27/06/2021 - v0.6.0 update released - new avatar feature, coupon item and more!</center>
     </div>
   </div>
 
@@ -255,7 +264,8 @@
 							<h6>Name: Frisbee</h6>
 							<h6>Price: 15 Points</h6>
 							<h6>Description: A neat toy!</h6>
-							<button class="onhover" title="Buy a frisbee!" onclick="buy('Frisbee', 15, 'frisbeeBuy', 'frisbee')" id="frisbeeBuy">Buy!</button>
+							<button class="onhover" title="Buy a frisbee!" onclick="buy('Frisbee', 15, 'frisbeeBuy', 'frisbee')" id="frisbeeBuy">Buy</button>
+							<button class="onhover" title="Sell your frisbee" onclick="sell('Frisbee')">Sell</button>
 						</div>
 					</div><br>
 
@@ -265,7 +275,19 @@
 							<h6>Name: Pan</h6>
 							<h6>Price: 15 Points</h6>
 							<h6>Description: Cook food with a state-of-the-art pan!</h6>
-							<button class="onhover" title="Buy a pan to cook food!" onclick="buy('Pan', 15, 'panBuy', 'pan')" id="panBuy">Buy!</button><br><br>
+							<button class="onhover" title="Buy a pan to cook food!" onclick="buy('Pan', 15, 'panBuy', 'pan')" id="panBuy">Buy</button>
+							<button class="onhover" title="Sell your pan" onclick="sell('Pan')">Sell</button>
+						</div>
+					</div><br>
+
+						<div class="card" style="width:25rem;">
+						<div class="card-body">
+							<image src="images/CouponDecal.png" style="float:right;width:150px;"></image>
+							<h6>Name: Coupon</h6>
+							<h6>Price: 50 Points</h6>
+							<h6>Description: Save money with a coupon</h6>
+							<button class="onhover" title="Buy a coupon to save money on purchases" onclick="buy('Coupon', 50, 'couponBuy', 'coupon')" id="couponBuy">Buy</button>
+							<button class="onhover" title="Sell your coupon" onclick="sell('Coupon')">Sell</button>
 						</div>
 					</div><br>
 
@@ -275,7 +297,8 @@
 							<h6>Name: Car</h6>
 							<h6>Price: 2000 Points</h6>
 							<h6>Description: Buy a car for the taxi job!</h6>
-							<button class="onhover" title="Buy a car to do the taxi job!" onclick="buy('Car', 2000, 'carBuy', 'car')" id="carBuy">Buy!</button>
+							<button class="onhover" title="Buy a car to do the taxi job!" onclick="buy('Car', 2000, 'carBuy', 'car')" id="carBuy">Buy</button>
+							<button class="onhover" title="Sell your car" onclick="sell('Car')">Sell</button>
 						</div>
 					</div><br>
 
@@ -285,7 +308,8 @@
 							<h6>Name: Van</h6>
 							<h6>Price: 5000 Points</h6>
 							<h6>Description: Use a van for the delivery job!</h6>
-							<button class="onhover" title="Buy a van to deliver parcels!" onclick="buy('Van', 5000, 'vanBuy', 'van')" id="vanBuy">Buy!</button>
+							<button class="onhover" title="Buy a van to deliver parcels!" onclick="buy('Van', 5000, 'vanBuy', 'van')" id="vanBuy">Buy</button>
+							<button class="onhover" title="Sell your van" onclick="sell('Van')">Sell</button>
 						</div>
 					</div><br>
 
@@ -295,7 +319,8 @@
 							<h6>Name: Garden</h6>
 							<h6>Price: 500 Points</h6>
 							<h6>Description: Get a garden so you can grow plants!</h6>
-							<button class="onhover" title="Buy a garden to grow plants!" onclick="buy('Garden', 500, 'gardenBuy', 'garden')" id="gardenBuy">Buy!</button>
+							<button class="onhover" title="Buy a garden to grow plants!" onclick="buy('Garden', 500, 'gardenBuy', 'garden')" id="gardenBuy">Buy</button>
+							<button class="onhover" title="Sell your garden" onclick="sell('Garden')">Sell</button>
 						</div>
 					</div><br>
 				</div>
@@ -345,20 +370,23 @@
 			<!--Games-->
       <h2 id="games">Games 🎮</h2>
 
-      <h3>🍎 Fruit or vegetable? - no coins required - +5 coins</h3>
+      <h3>🍎 Fruit or vegetable? - no coins required - +5 points</h3>
       <button onclick="foodGame()" id="fov">Play Game</button><br><br>
 
-      <h3>🐊 Reptile or mammal? - no coins required - +5 coins</h3>
+      <h3>🐊 Reptile or mammal? - no coins required - +5 points</h3>
       <button onclick="animalGame()" id="rom">Play Game</button><br><br>
 
-      <h3>🔤 Unreverse words - no coins required - +10 coins</h3>
+      <h3>🔤 Unreverse words - no coins required - +10 points</h3>
       <button onclick="unreverse()" id="urw">Play Game</button><br><br>
 
-      <h3>🔤 Unreverse words (Hard) - no coins required - +15 coins</h3>
+      <h3>🔤 Unreverse words (Hard) - no coins required - +15 points</h3>
       <button onclick="unreverseHARD()" id="urwH">Play Game</button><br><br>
 
-      <h3>❓ Answer riddles - no coins required - +15 coins</h3>
-      <button onclick="riddleGame()" id="riddles">Play Game</button>
+      <h3>❓ Answer riddles - no coins required - +15 points</h3>
+      <button onclick="riddleGame()" id="riddles">Play Game</button><br><br>
+
+			<h3>🔤 Guess the Word - no coins required - +25 points</h3>
+			<button onclick="guessword()" id="guessword">Play Game</button>
 
       <hr>
 
@@ -371,7 +399,7 @@
       <h3>🍲 Make food for people - Pan required.</h3>
       <button onclick="cook()" id="makefood">Do Activity</button><br><br>
 
-      <h3>🪴 Grow plants - Garden required.</h3>
+      <h3>🌱 Grow plants - Garden required.</h3>
       <button onclick="growplants()" id="garden">Do Activity</button><br><br>
 
       <h3>🍏 Harvest apples - Garden required.</h3>
@@ -408,15 +436,22 @@
 		<center><h1 style="text-decoration:underline;">Options ⚙️</h1></center>
 		<center><h6>Customise the site</h6></center><hr>
 
-			<h2>Username & About 📛</h2>
+			<h2>User Info 📛</h2>
 
 			<h3>Username</h3>
       <p id="yourname">{{ username }}</p>
       <button class="onhover" title="This name will be used in the chat." onclick="setName()">Change username</button><br><br>
 
+			<h3>Avatar</h3>
+			<p>Use an image link for your avatar</p>
+			<button class="onhover" title="This image will appear beside your name in chat." onclick="setAvatar()">Set avatar</button><br><br>
+
 			<h3>About</h3>
       <p id="userabout">{{ userabout || "You currently don't have an about text." }}</p>
-      <button class="onhover" title="A short description about you." onclick="setAbout()">Change about</button><br>
+      <button class="onhover" title="A short description about you." onclick="setAbout()">Change about</button><br><br>
+
+			<h3>Reset Page</h3>
+      <button class="onhover" title="This option will reset EVERYTHING on the page, such as stats, customisation, and user info." onclick="resetUser()">Reset</button><br>
 
 			<hr>
 
@@ -431,7 +466,7 @@
 
       <h4>Change button colour (HEX)</h4>
       <button class="onhover" title="Change your button colour." onclick="hexB()" id="Bchange">Change</button><br><br>
-        
+
       <h4>Reset page theme (!)</h4>
       <button class="onhover" title="Reset to default colours - no confirmation!" onclick="backgroundremove()" id="BGremove">Reset All</button>
 
@@ -442,12 +477,6 @@
 
       <h3>Redeem a code</h3>
       <button class="onhover" title="Redeem a promo code for coins!" onclick="redeem()" id="rac">Redeem code</button><br><br>
-
-      <h3>Credits</h3>
-			Developers - Neo238 <br><br>
-			Retired Devs - Drags890 & Kalibrekirby <br><br>
-			Testers - Lord_7302, Jaimit2005, lightblueman310, Ezekia & Dominic
-
 	
 	</script>
 
@@ -460,7 +489,7 @@
 		<h3>Jobs</h3>
 		<div class="card" style="width:25rem;">
 			<div class="card-body">
-				<h6>Job: Chef</h6>
+				<h6>Job: Chef 👨‍🍳</h6>
 				<h6>Salary: 25 Points/day</h6>
 				<h6>Requirment: 35 EXP</h6>
 				<button class="onhover" title="Work as chef." onclick="addJob('Chef', 35)">Apply!</button>
@@ -469,10 +498,19 @@
 
 		<div class="card" style="width:25rem;">
 			<div class="card-body">
-				<h6>Job: Waiter</h6>
+				<h6>Job: Waiter 💁‍♂️</h6>
 				<h6>Salary: 30 Points/day</h6>
 				<h6>Requirment: 30 EXP</h6>
 				<button class="onhover" title="Work as waiter." onclick="addJob('Waiter', 30)">Apply!</button>
+			</div>
+		</div><br>
+
+		<div class="card" style="width:25rem;">
+			<div class="card-body">
+				<h6>Job: Scientist 🔬</h6>
+				<h6>Salary: 80 Points/day</h6>
+				<h6>Requirment: 75 EXP</h6>
+				<button class="onhover" title="Work as waiter." onclick="addJob('Scientist', 75)">Apply!</button>
 			</div>
 		</div>
 		
@@ -493,12 +531,19 @@
 		<center><h1 style="text-decoration:underline;">Information ℹ️</h1></center>
 		<center><h6>Information and News on Argenia</h6></center><hr>
 
-		<p>Argenia is a web game based on earning money and buying items. It is run by Nexark, a development group founded recently in August 2020.</p>
+		<p>Welcome to <b>Argenia</b>, web-based idle game currently in development by Neo238 that is about about making virtual money from playing minigames, doing jobs, running businesses and more. Currently the game is in development but we hope to add more cool features in the future.</p>
 
 		<br>
 
 		<h2>Our Discord</h2>
 		<iframe src="https://discord.com/widget?id=854028107450155058&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+
+		<br>
+
+		<h3>Credits</h3>
+			Developers - Neo238 <br><br>
+			Retired Devs - Drags890 & Kalibrekirby <br><br>
+			Testers - Lord_7302, Jaimit2005, lightblueman310, Ezekia & Dominic
 	
 	</script>
 
@@ -512,7 +557,7 @@
   <hr>
 
 	<!--Footer-->
-  <footer>You may have to enable cookies for the site to function. | Neo238, 2021 | V0.5.0</footer>
+  <footer>You may have to enable cookies for the site to function. | Neo238, 2021 | Hosted on <a href="https://replit.com/">repl.it</a> | V0.6.0</footer>
 
 </body>
 
